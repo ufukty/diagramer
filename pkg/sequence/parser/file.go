@@ -15,7 +15,7 @@ func File(path string) (*ast.Diagram, error) {
 	if err != nil {
 		return nil, fmt.Errorf("opening: %w", err)
 	}
-	defer file.Close()
+	defer file.Close() //nolint:errcheck
 
 	diagram := &ast.Diagram{
 		Lifelines:  make(map[string]*ast.Lifeline),
