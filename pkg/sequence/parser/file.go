@@ -3,6 +3,7 @@ package parser
 import (
 	"bufio"
 	"fmt"
+	"io"
 	"os"
 	"strings"
 
@@ -10,20 +11,14 @@ import (
 	"github.com/ufukty/diagramer/pkg/sequence/parser/parse/ast"
 )
 
-func File(path string) (*ast.Diagram, error) {
-	file, err := os.Open(path)
-	if err != nil {
-		return nil, fmt.Errorf("opening: %w", err)
-	}
-	defer file.Close() //nolint:errcheck
-
+func Reader(src io.Reader) (*ast.Diagram, error) {
 	diagram := &ast.Diagram{
 		Lifelines:  make(map[string]*ast.Lifeline),
 		Messages:   []*ast.Message{},
 		AutoNumber: false,
 	}
 
-	scanner := bufio.NewScanner(file)
+	scanner := bufio.NewScanner(src)
 	for i := 0; scanner.Scan(); i++ {
 		line := strings.TrimSpace(scanner.Text())
 		if line == "" || strings.HasPrefix(line, "%%") {
@@ -53,4 +48,13 @@ func File(path string) (*ast.Diagram, error) {
 	}
 
 	return diagram, nil
+}
+
+func File(path string) (*ast.Diagram, error) {
+	file, err := os.Open(path)
+	if err != nil {
+		return nil, fmt.Errorf("opening: %w", err)
+	}
+	defer file.Close() //nolint:errcheck
+	return Reader(file)
 }
