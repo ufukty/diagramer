@@ -3,7 +3,7 @@ package match
 import (
 	"regexp"
 
-	"github.com/ufukty/diagramer/pkg/sequence/parser/match/ast"
+	"github.com/ufukty/diagramer/pkg/sequence/ast"
 )
 
 var (

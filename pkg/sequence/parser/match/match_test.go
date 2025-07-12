@@ -5,7 +5,7 @@ import (
 	"slices"
 	"testing"
 
-	"github.com/ufukty/diagramer/pkg/sequence/parser/match/ast"
+	"github.com/ufukty/diagramer/pkg/sequence/ast"
 )
 
 func TestLifeline(t *testing.T) {

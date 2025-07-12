@@ -7,8 +7,8 @@ import (
 	"os"
 	"strings"
 
+	"github.com/ufukty/diagramer/pkg/sequence/ast"
 	"github.com/ufukty/diagramer/pkg/sequence/parser/match"
-	"github.com/ufukty/diagramer/pkg/sequence/parser/match/ast"
 )
 
 func Reader(src io.Reader) (*ast.Diagram, error) {
