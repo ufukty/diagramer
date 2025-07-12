@@ -1,11 +1,11 @@
-package parse
+package match
 
 import (
 	"maps"
 	"slices"
 	"testing"
 
-	"github.com/ufukty/diagramer/pkg/sequence/parser/parse/ast"
+	"github.com/ufukty/diagramer/pkg/sequence/parser/match/ast"
 )
 
 func TestLifeline(t *testing.T) {

@@ -1,9 +1,9 @@
-package parse
+package match
 
 import (
 	"regexp"
 
-	"github.com/ufukty/diagramer/pkg/sequence/parser/parse/ast"
+	"github.com/ufukty/diagramer/pkg/sequence/parser/match/ast"
 )
 
 var (

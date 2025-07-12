@@ -7,8 +7,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/ufukty/diagramer/pkg/sequence/parser/parse"
-	"github.com/ufukty/diagramer/pkg/sequence/parser/parse/ast"
+	"github.com/ufukty/diagramer/pkg/sequence/parser/match"
+	"github.com/ufukty/diagramer/pkg/sequence/parser/match/ast"
 )
 
 func Reader(src io.Reader) (*ast.Diagram, error) {
@@ -33,12 +33,12 @@ func Reader(src io.Reader) (*ast.Diagram, error) {
 			diagram.AutoNumber = true
 
 		case strings.HasPrefix(line, "participant") || strings.HasPrefix(line, "actor"):
-			if p := parse.Lifeline(line); p != nil {
+			if p := match.Lifeline(line); p != nil {
 				diagram.Lifelines[p.Name] = p
 			}
 
 		case strings.Contains(line, "->>"):
-			if m := parse.Message(line); m != nil {
+			if m := match.Message(line); m != nil {
 				diagram.Messages = append(diagram.Messages, m)
 			}
 

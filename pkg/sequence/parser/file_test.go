@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/ufukty/diagramer/pkg/sequence/parser/parse/ast"
+	"github.com/ufukty/diagramer/pkg/sequence/parser/match/ast"
 )
 
 func PrintDiagram(d *ast.Diagram) {
