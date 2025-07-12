@@ -13,7 +13,7 @@ import (
 
 func Reader(src io.Reader) (*ast.Diagram, error) {
 	diagram := &ast.Diagram{
-		Lifelines:  make(map[string]*ast.Lifeline),
+		Lifelines:  []*ast.Lifeline{},
 		Messages:   []*ast.Message{},
 		AutoNumber: false,
 	}
@@ -34,7 +34,7 @@ func Reader(src io.Reader) (*ast.Diagram, error) {
 
 		case strings.HasPrefix(line, "participant") || strings.HasPrefix(line, "actor"):
 			if p := match.Lifeline(line); p != nil {
-				diagram.Lifelines[p.Name] = p
+				diagram.Lifelines = append(diagram.Lifelines, p)
 			}
 
 		case strings.Contains(line, "->>"):

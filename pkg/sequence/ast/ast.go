@@ -19,7 +19,7 @@ type Message struct {
 }
 
 type Diagram struct {
-	Lifelines  map[string]*Lifeline
+	Lifelines  []*Lifeline
 	Messages   []*Message
 	AutoNumber bool
 }

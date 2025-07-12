@@ -2,6 +2,7 @@ package parser
 
 import (
 	"fmt"
+	"slices"
 	"testing"
 
 	"github.com/ufukty/diagramer/pkg/sequence/ast"
@@ -16,6 +17,14 @@ func PrintDiagram(d *ast.Diagram) {
 	for _, m := range d.Messages {
 		fmt.Printf("  %s ->> %s: %s\n", m.From, m.To, m.Content)
 	}
+}
+
+func findLifeline(diagram *ast.Diagram, lifeline string) (*ast.Lifeline, bool) {
+	i := slices.IndexFunc(diagram.Lifelines, func(ll *ast.Lifeline) bool { return ll.Name == "db" })
+	if i != -1 {
+		return diagram.Lifelines[i], true
+	}
+	return nil, false
 }
 
 func TestFile(t *testing.T) {
@@ -35,14 +44,15 @@ func TestFile(t *testing.T) {
 	}
 
 	// Check specific lifelines names
-	db, ok := diagram.Lifelines["db"]
+
+	db, ok := findLifeline(diagram, "db")
 	if !ok {
 		t.Errorf("Expected lifelines 'db' to exist")
 	} else if db.Alias != "Server Database" {
 		t.Errorf("Expected db name 'Server Database', got '%s'", db.Alias)
 	}
 
-	u, ok := diagram.Lifelines["u"]
+	u, ok := findLifeline(diagram, "u")
 	if !ok {
 		t.Errorf("Expected lifelines 'u' to exist")
 	} else if u.Alias != "User" {
