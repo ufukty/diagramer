@@ -1,3 +1,10 @@
+// Package ast defines the types that is just enough to represent
+// document with every detail explicitly specified by the user.
+//
+// AST nodes doesn't represents implied yet undeclared details such
+// as lifelines mentioned in links but not declared at the top.
+//
+// For more complete document representation see the doc package.
 package ast
 
 type Node interface {
