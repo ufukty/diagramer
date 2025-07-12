@@ -1,5 +1,9 @@
 package ast
 
+type Node interface {
+	node()
+}
+
 // Lifeline represents a diagram participant or actor
 type Lifeline struct {
 	Type  string
@@ -19,3 +23,7 @@ type Diagram struct {
 	Messages   []*Message
 	AutoNumber bool
 }
+
+func (*Lifeline) node() {}
+func (*Message) node()  {}
+func (*Diagram) node()  {}
