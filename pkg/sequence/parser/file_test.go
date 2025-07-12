@@ -20,7 +20,7 @@ func PrintDiagram(d *ast.Diagram) {
 }
 
 func findLifeline(diagram *ast.Diagram, lifeline string) (*ast.Lifeline, bool) {
-	i := slices.IndexFunc(diagram.Lifelines, func(ll *ast.Lifeline) bool { return ll.Name == "db" })
+	i := slices.IndexFunc(diagram.Lifelines, func(ll *ast.Lifeline) bool { return ll.Name == lifeline })
 	if i != -1 {
 		return diagram.Lifelines[i], true
 	}
