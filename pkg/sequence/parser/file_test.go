@@ -5,7 +5,7 @@ import (
 	"slices"
 	"testing"
 
-	"github.com/ufukty/diagramer/pkg/sequence/ast"
+	"github.com/ufukty/diagramer/pkg/sequence/parser/ast"
 )
 
 func PrintDiagram(d *ast.Diagram) {

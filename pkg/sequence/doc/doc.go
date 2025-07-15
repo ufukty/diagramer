@@ -4,7 +4,7 @@
 package doc
 
 import (
-	"github.com/ufukty/diagramer/pkg/sequence/ast"
+	"github.com/ufukty/diagramer/pkg/sequence/parser/ast"
 )
 
 type Lifeline struct {

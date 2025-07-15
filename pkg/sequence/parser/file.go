@@ -7,7 +7,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/ufukty/diagramer/pkg/sequence/ast"
+	"github.com/ufukty/diagramer/pkg/sequence/parser/ast"
 	"github.com/ufukty/diagramer/pkg/sequence/parser/match"
 )
 
