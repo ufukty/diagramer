@@ -19,15 +19,19 @@ type dimensional struct {
 	Content, Asked _range
 }
 
+func clamp(a, b fixed.Int26_6) fixed.Int26_6 {
+	return min(a, b)
+}
+
 func (d *dimensional) Dimensions() size {
 	return size{
-		Width: min(
+		Width: clamp(
 			max(d.Content.Min.Width, d.Asked.Min.Width),
-			max(d.Content.Max.Width, d.Asked.Max.Width),
+			min(d.Content.Max.Width, d.Asked.Max.Width),
 		),
-		Height: min(
+		Height: clamp(
 			max(d.Content.Min.Height, d.Asked.Min.Height),
-			max(d.Content.Max.Height, d.Asked.Max.Height),
+			min(d.Content.Max.Height, d.Asked.Max.Height),
 		),
 	}
 }
