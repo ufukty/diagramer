@@ -24,7 +24,7 @@ func FromFile(src string) error {
 		return fmt.Errorf("parsing: %w", err)
 	}
 	explicit := doc.FromAst(ast)
-	font, err := text.LoadFont()
+	font, err := text.LoadFont("Arial", 14)
 	if err != nil {
 		return fmt.Errorf("loading font: %w", err)
 	}

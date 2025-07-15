@@ -8,10 +8,8 @@ import (
 	"golang.org/x/image/math/fixed"
 )
 
-var FONTPATH = "/System/Library/Fonts/Supplemental/Arial.ttf" // macOS
-
 func TestFont_TextWidth_HardCoded(t *testing.T) {
-	font, err := LoadFont(FONTPATH, 14)
+	font, err := LoadFont("Arial", 14)
 	if err != nil {
 		t.Fatalf("prep: %v", err)
 	}
@@ -33,7 +31,7 @@ func TestFont_TextWidth_HardCoded(t *testing.T) {
 }
 
 func TestFont_TextWidth_Relative(t *testing.T) {
-	font, err := LoadFont(FONTPATH, 14)
+	font, err := LoadFont("Arial", 14)
 	if err != nil {
 		t.Fatalf("prep: %v", err)
 	}

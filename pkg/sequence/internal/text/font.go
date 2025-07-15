@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/flopp/go-findfont"
 	"golang.org/x/image/font"
 	"golang.org/x/image/font/opentype"
 	"golang.org/x/image/math/fixed"
@@ -15,7 +16,12 @@ type Font struct {
 	face font.Face
 }
 
-func LoadFont(path string, size float64) (*Font, error) {
+func LoadFont(fontname string, size float64) (*Font, error) {
+	path, err := findfont.Find(fontname)
+	if err != nil {
+		return nil, fmt.Errorf("finding font file: %w", err)
+	}
+
 	fontBytes, err := os.ReadFile(path)
 	if err != nil {
 		return nil, fmt.Errorf("reading font file: %w", err)
