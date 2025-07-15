@@ -6,11 +6,16 @@ import (
 
 	"golang.org/x/image/font"
 	"golang.org/x/image/font/opentype"
+	"golang.org/x/image/math/fixed"
 )
 
 const DPI = 72
 
-func LoadFont(path string, size float64) (font.Face, error) {
+type Font struct {
+	face font.Face
+}
+
+func LoadFont(path string, size float64) (*Font, error) {
 	fontBytes, err := os.ReadFile(path)
 	if err != nil {
 		return nil, fmt.Errorf("reading font file: %w", err)
@@ -30,5 +35,13 @@ func LoadFont(path string, size float64) (font.Face, error) {
 		return nil, fmt.Errorf("creating font face: %w", err)
 	}
 
-	return face, nil
+	return &Font{face}, nil
+}
+
+func (f Font) Close() error {
+	return f.face.Close()
+}
+
+func (f *Font) TextWidth(text string) fixed.Int26_6 {
+	return (&font.Drawer{Face: f.face}).MeasureString(text)
 }
