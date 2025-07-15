@@ -1,11 +1,11 @@
-package parser
+package parse
 
 import (
 	"fmt"
 	"slices"
 	"testing"
 
-	"github.com/ufukty/diagramer/pkg/sequence/parser/ast"
+	"github.com/ufukty/diagramer/pkg/sequence/parse/ast"
 )
 
 func PrintDiagram(d *ast.Diagram) {

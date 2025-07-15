@@ -1,4 +1,4 @@
-package parser
+package parse
 
 import (
 	"bufio"
@@ -7,11 +7,11 @@ import (
 	"os"
 	"strings"
 
-	"github.com/ufukty/diagramer/pkg/sequence/parser/ast"
-	"github.com/ufukty/diagramer/pkg/sequence/parser/match"
+	"github.com/ufukty/diagramer/pkg/sequence/parse/ast"
+	"github.com/ufukty/diagramer/pkg/sequence/parse/match"
 )
 
-func Reader(src io.Reader) (*ast.Diagram, error) {
+func FromReader(src io.Reader) (*ast.Diagram, error) {
 	diagram := &ast.Diagram{
 		Lifelines:  []*ast.Lifeline{},
 		Messages:   []*ast.Message{},
@@ -56,5 +56,5 @@ func File(path string) (*ast.Diagram, error) {
 		return nil, fmt.Errorf("opening: %w", err)
 	}
 	defer file.Close() //nolint:errcheck
-	return Reader(file)
+	return FromReader(file)
 }
