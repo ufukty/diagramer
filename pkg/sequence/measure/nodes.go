@@ -20,14 +20,16 @@ type dimensional struct {
 }
 
 func (d *dimensional) Dimensions() size {
-	f := size{
+	return size{
 		Width: min(
 			max(d.Content.Min.Width, d.Asked.Min.Width),
-			min(d.Content.Max.Width, d.Asked.Max.Width),
+			max(d.Content.Max.Width, d.Asked.Max.Width),
 		),
-		Height: 0,
+		Height: min(
+			max(d.Content.Min.Height, d.Asked.Min.Height),
+			max(d.Content.Max.Height, d.Asked.Max.Height),
+		),
 	}
-	return f
 }
 
 type Participant struct {
