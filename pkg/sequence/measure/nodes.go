@@ -46,4 +46,6 @@ type Message struct {
 }
 
 type Diagram struct {
+	Lifelines []Lifeline
+	Messages  []*Message
 }
