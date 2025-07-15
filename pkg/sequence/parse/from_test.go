@@ -28,7 +28,7 @@ func findLifeline(diagram *ast.Diagram, lifeline string) (*ast.Lifeline, bool) {
 	return nil, false
 }
 
-func TestFile(t *testing.T) {
+func TestFromReader(t *testing.T) {
 	file, err := os.Open("testdata/1.txt")
 	if err != nil {
 		t.Fatalf("prep, open file: %v", err)
