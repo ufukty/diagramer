@@ -2,6 +2,7 @@ package parse
 
 import (
 	"fmt"
+	"os"
 	"slices"
 	"testing"
 
@@ -28,7 +29,12 @@ func findLifeline(diagram *ast.Diagram, lifeline string) (*ast.Lifeline, bool) {
 }
 
 func TestFile(t *testing.T) {
-	diagram, err := File("testdata/1.txt")
+	file, err := os.Open("testdata/1.txt")
+	if err != nil {
+		t.Fatalf("prep, open file: %v", err)
+	}
+	defer file.Close() //nolint:errcheck
+	diagram, err := FromReader(file)
 	if err != nil {
 		t.Fatalf("act: %v", err)
 	}

@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"io"
-	"os"
 	"strings"
 
 	"github.com/ufukty/diagramer/pkg/sequence/parse/ast"
@@ -48,13 +47,4 @@ func FromReader(src io.Reader) (*ast.Diagram, error) {
 	}
 
 	return diagram, nil
-}
-
-func File(path string) (*ast.Diagram, error) {
-	file, err := os.Open(path)
-	if err != nil {
-		return nil, fmt.Errorf("opening: %w", err)
-	}
-	defer file.Close() //nolint:errcheck
-	return FromReader(file)
 }
