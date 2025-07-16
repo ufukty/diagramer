@@ -7,19 +7,23 @@ import (
 )
 
 type Participant struct {
+	dimensional
 	Node *doc.Lifeline
 }
 
 type Actor struct {
+	dimensional
 	Node *doc.Lifeline
 }
 
 type Message struct {
+	dimensional
 	Source, Dest *doc.Lifeline
 	Message      *doc.Message
 }
 
 type Diagram struct {
+	dimensional
 	Lifelines []Lifeline
 	Messages  []*Message
 }
