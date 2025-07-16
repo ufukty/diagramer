@@ -10,7 +10,7 @@ type _range struct {
 	Min, Max size
 }
 
-type dimensional struct {
+type dimensions struct {
 	Content, Asked _range
 }
 
@@ -18,7 +18,7 @@ func clamp(a, b fixed.Int26_6) fixed.Int26_6 {
 	return min(a, b)
 }
 
-func (d *dimensional) Dimensions() size {
+func (d *dimensions) Negotiate() size {
 	return size{
 		Width: clamp(
 			max(d.Content.Min.Width, d.Asked.Min.Width),
