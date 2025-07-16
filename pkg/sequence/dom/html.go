@@ -3,11 +3,11 @@ package dom
 import (
 	"fmt"
 
-	"github.com/ufukty/diagramer/pkg/sequence/dom/internal/nodes"
+	"github.com/ufukty/diagramer/pkg/sequence/dom/internal/html"
 )
 
 func (n ActorHead) ToHtml() string {
-	return nodes.
+	return html.
 		NewElement("div").
 		SetClassList("actor").
 		SetStyle(map[string]string{
@@ -15,13 +15,13 @@ func (n ActorHead) ToHtml() string {
 			"grid-template-columns": fmt.Sprintf("%d / %d", n.Track, n.Track+1),
 		}).
 		SetChildren(
-			nodes.NewText(n.Alias),
+			html.NewText(n.Alias),
 		).
 		ToHtml()
 }
 
 func (n ParticipantHead) ToHtml() string {
-	return nodes.
+	return html.
 		NewElement("div").
 		SetClassList("participant").
 		SetStyle(map[string]string{
@@ -29,7 +29,7 @@ func (n ParticipantHead) ToHtml() string {
 			"grid-template-columns": fmt.Sprintf("%d / %d", n.Track, n.Track+1),
 		}).
 		SetChildren(
-			nodes.NewText(n.Alias),
+			html.NewText(n.Alias),
 		).
 		ToHtml()
 }
@@ -40,7 +40,7 @@ func (n Message) ToHtml() string {
 	// TrackFrom int
 	// TrackTo   int
 	// Step      int
-	return nodes.NewElement("div").
+	return html.NewElement("div").
 		ToHtml()
 }
 
@@ -49,6 +49,6 @@ func (n Diagram) ToHtml() string {
 	// Ast       *ast.Diagram
 	// Lifelines []*Lifeline
 	// Messages  []*Message
-	return nodes.NewElement("div").
+	return html.NewElement("div").
 		ToHtml()
 }

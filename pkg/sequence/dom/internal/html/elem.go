@@ -1,4 +1,4 @@
-package nodes
+package html
 
 type Elem struct {
 	TagName   string

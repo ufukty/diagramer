@@ -1,4 +1,4 @@
-package nodes
+package html
 
 type Text struct {
 	Content string
