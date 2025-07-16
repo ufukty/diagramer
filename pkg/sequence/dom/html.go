@@ -11,8 +11,8 @@ func (n ActorHead) ToHtml() string {
 		NewElement("div").
 		SetClassList("actor").
 		SetStyle(map[string]string{
-			"grid-template-rows":    fmt.Sprintf("%d / %d", n.StepCreate, n.StepDestroy),
-			"grid-template-columns": fmt.Sprintf("%d / %d", n.Track, n.Track+1),
+			"grid-row":    fmt.Sprintf("%d / %d", n.StepCreate+1, n.StepDestroy+1),
+			"grid-column": fmt.Sprintf("%d / %d", n.Track+1, n.Track+2),
 		}).
 		SetChildren(
 			html.NewText(n.Alias),
@@ -25,8 +25,8 @@ func (n ParticipantHead) ToHtml() string {
 		NewElement("div").
 		SetClassList("participant").
 		SetStyle(map[string]string{
-			"grid-template-rows":    fmt.Sprintf("%d / %d", n.StepCreate, n.StepDestroy),
-			"grid-template-columns": fmt.Sprintf("%d / %d", n.Track, n.Track+1),
+			"grid-row":    fmt.Sprintf("%d / %d", n.StepCreate+1, n.StepDestroy+1),
+			"grid-column": fmt.Sprintf("%d / %d", n.Track+1, n.Track+2),
 		}).
 		SetChildren(
 			html.NewText(n.Alias),
