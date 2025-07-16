@@ -25,7 +25,7 @@ func Render(dst io.Writer, src io.Reader) error {
 		return fmt.Errorf("loading font: %w", err)
 	}
 	measured := measure.Measure(dom, font)
-	laid, bounding, err := lay.Out(dom)
+	laid, bounding, err := lay.Out(measured)
 	if err != nil {
 		return fmt.Errorf("layout: %w", err)
 	}
