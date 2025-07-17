@@ -1,10 +1,12 @@
-package parser
+package parse
 
 import (
 	"fmt"
+	"os"
+	"slices"
 	"testing"
 
-	"github.com/ufukty/diagramer/pkg/sequence/parser/parse/ast"
+	"github.com/ufukty/diagramer/pkg/sequence/parse/ast"
 )
 
 func PrintDiagram(d *ast.Diagram) {
@@ -18,8 +20,21 @@ func PrintDiagram(d *ast.Diagram) {
 	}
 }
 
-func TestFile(t *testing.T) {
-	diagram, err := File("testdata/1.txt")
+func findLifeline(diagram *ast.Diagram, lifeline string) (*ast.Lifeline, bool) {
+	i := slices.IndexFunc(diagram.Lifelines, func(ll *ast.Lifeline) bool { return ll.Name == lifeline })
+	if i != -1 {
+		return diagram.Lifelines[i], true
+	}
+	return nil, false
+}
+
+func TestFromReader(t *testing.T) {
+	file, err := os.Open("testdata/1.txt")
+	if err != nil {
+		t.Fatalf("prep, open file: %v", err)
+	}
+	defer file.Close() //nolint:errcheck
+	diagram, err := FromReader(file)
 	if err != nil {
 		t.Fatalf("act: %v", err)
 	}
@@ -35,14 +50,15 @@ func TestFile(t *testing.T) {
 	}
 
 	// Check specific lifelines names
-	db, ok := diagram.Lifelines["db"]
+
+	db, ok := findLifeline(diagram, "db")
 	if !ok {
 		t.Errorf("Expected lifelines 'db' to exist")
 	} else if db.Alias != "Server Database" {
 		t.Errorf("Expected db name 'Server Database', got '%s'", db.Alias)
 	}
 
-	u, ok := diagram.Lifelines["u"]
+	u, ok := findLifeline(diagram, "u")
 	if !ok {
 		t.Errorf("Expected lifelines 'u' to exist")
 	} else if u.Alias != "User" {
