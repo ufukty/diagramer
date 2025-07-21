@@ -20,19 +20,19 @@ type Note struct {
 
 type Break struct {
 	Description string
-	Statements  []Stmt
+	Stmts       []Stmt
 }
 
 type Loop struct {
 	Description string
-	Statements  []Stmt
+	Stmts       []Stmt
 }
 
 // MARK: Multiple blocks
 
 type CriticalRegionBlock struct {
 	Description string
-	Statements  []Stmt
+	Stmts       []Stmt
 }
 
 type CriticalRegion struct {
@@ -41,7 +41,7 @@ type CriticalRegion struct {
 
 type ParallelBlock struct {
 	Description string
-	Statements  []Stmt
+	Stmts       []Stmt
 }
 
 type Parallel struct {
@@ -50,12 +50,14 @@ type Parallel struct {
 
 type AltBlock struct {
 	Description string
-	Statements  []Stmt
+	Stmts       []Stmt
 }
 
 type Alt struct {
 	Blocks []AltBlock
 }
+
+// MARK: Diagram
 
 type DiagramOpts struct {
 	AutoNumber bool
