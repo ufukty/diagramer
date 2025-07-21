@@ -1,4 +1,4 @@
-package ast
+package lexer
 
 type Lifeline struct {
 	Type  string
@@ -7,12 +7,12 @@ type Lifeline struct {
 }
 
 type Message struct {
-	From, To *Lifeline
+	From, To string
 	Content  string
 }
 
 type Note struct {
-	From, To *Lifeline
+	From, To string
 	Content  string
 }
 

@@ -3,7 +3,7 @@ package doc
 import (
 	"fmt"
 
-	"github.com/ufukty/diagramer/pkg/sequence/dom/internal/html"
+	"github.com/ufukty/diagramer/pkg/sequence/internal/html"
 )
 
 func (n ActorHead) ToHtml() string {

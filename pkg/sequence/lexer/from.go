@@ -1,19 +1,20 @@
-package parse
+// Package lexer builds a node tree representing the user doc.
+// The result differs from an AST with its lack to symbol based
+// input validation, and reference between symbols. It produces
+// an AST solely based on literal values.
+package lexer
 
 import (
 	"bufio"
 	"fmt"
 	"io"
 	"strings"
-
-	"github.com/ufukty/diagramer/pkg/sequence/ast"
-	"github.com/ufukty/diagramer/pkg/sequence/match"
 )
 
-func FromReader(src io.Reader) (*ast.Diagram, error) {
-	diagram := &ast.Diagram{
-		Stmts: []ast.Stmt{},
-		Opts:  ast.DiagramOpts{},
+func FromReader(src io.Reader) (*Diagram, error) {
+	diagram := &Diagram{
+		Stmts: []Stmt{},
+		Opts:  DiagramOpts{},
 	}
 
 	scanner := bufio.NewScanner(src)
@@ -31,12 +32,12 @@ func FromReader(src io.Reader) (*ast.Diagram, error) {
 			diagram.Opts.AutoNumber = true
 
 		case strings.HasPrefix(line, "participant") || strings.HasPrefix(line, "actor"):
-			if ll := match.Lifeline(line); ll != nil {
+			if ll := lexLifeline(line); ll != nil {
 				diagram.Stmts = append(diagram.Stmts, ll)
 			}
 
 		case strings.Contains(line, "->>"):
-			if m := match.Message(line); m != nil {
+			if m := lexMessage(line); m != nil {
 				diagram.Stmts = append(diagram.Stmts, m)
 			}
 

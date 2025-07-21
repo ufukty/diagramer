@@ -1,4 +1,4 @@
-package ast
+package lexer
 
 type Stmt interface {
 	_stmt()
@@ -7,7 +7,7 @@ type Stmt interface {
 func (Alt) _stmt()            {}
 func (Break) _stmt()          {}
 func (CriticalRegion) _stmt() {}
-func (Lifeline) _stmt()    {}
+func (Lifeline) _stmt()       {}
 func (Loop) _stmt()           {}
 func (Message) _stmt()        {}
 func (Parallel) _stmt()       {}

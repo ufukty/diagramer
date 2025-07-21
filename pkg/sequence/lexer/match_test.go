@@ -1,15 +1,13 @@
-package match
+package lexer
 
 import (
 	"maps"
 	"slices"
 	"testing"
-
-	"github.com/ufukty/diagramer/pkg/sequence/parse/ast"
 )
 
 func TestLifeline(t *testing.T) {
-	tcs := map[string]*ast.Lifeline{
+	tcs := map[string]*Lifeline{
 		"actor a as Alice":       {Type: "actor", Name: "a", Alias: "Alice"},
 		"actor a":                {Type: "actor", Name: "a", Alias: ""},
 		"participant a as Alice": {Type: "participant", Name: "a", Alias: "Alice"},
@@ -28,7 +26,7 @@ func TestLifeline(t *testing.T) {
 }
 
 func TestMessage(t *testing.T) {
-	tcs := map[string]*ast.Message{
+	tcs := map[string]*Message{
 		"a->>b":      {From: "a", To: "b", Content: ""},
 		"a->>b: ACK": {From: "a", To: "b", Content: "ACK"},
 	}

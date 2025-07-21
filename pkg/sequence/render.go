@@ -6,10 +6,6 @@ import (
 	"io"
 
 	"github.com/ufukty/diagramer/pkg/sequence/doc"
-	"github.com/ufukty/diagramer/pkg/sequence/dom"
-	"github.com/ufukty/diagramer/pkg/sequence/internal/text"
-	"github.com/ufukty/diagramer/pkg/sequence/lay"
-	"github.com/ufukty/diagramer/pkg/sequence/measure"
 	"github.com/ufukty/diagramer/pkg/sequence/parse"
 )
 

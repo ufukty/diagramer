@@ -1,9 +1,7 @@
-package match
+package lexer
 
 import (
 	"regexp"
-
-	"github.com/ufukty/diagramer/pkg/sequence/parse/ast"
 )
 
 var (
@@ -11,12 +9,12 @@ var (
 	regexMessage  = regexp.MustCompile(`([^\s-]+)\s*(?:->>[-+]?)\s*([^\s:]*)(?::\s*(.+))?`)
 )
 
-func Lifeline(line string) *ast.Lifeline {
+func lexLifeline(line string) *Lifeline {
 	match := regexLifeline.FindStringSubmatch(line)
 	if len(match) < 3 {
 		return nil
 	}
-	p := &ast.Lifeline{
+	p := &Lifeline{
 		Type:  match[1],
 		Alias: "",
 		Name:  match[2],
@@ -27,12 +25,12 @@ func Lifeline(line string) *ast.Lifeline {
 	return p
 }
 
-func Message(line string) *ast.Message {
+func lexMessage(line string) *Message {
 	match := regexMessage.FindStringSubmatch(line)
 	if len(match) < 4 {
 		return nil
 	}
-	m := &ast.Message{
+	m := &Message{
 		From:    match[1],
 		To:      match[2],
 		Content: "",
