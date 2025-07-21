@@ -2,29 +2,22 @@ package sequence
 
 import (
 	"fmt"
-	"image"
 	"io"
 
-	"github.com/ufukty/diagramer/pkg/sequence/doc"
+	"github.com/ufukty/diagramer/pkg/sequence/lexer"
 	"github.com/ufukty/diagramer/pkg/sequence/parse"
 )
 
 func Render(dst io.Writer, src io.Reader) error {
-	ast, err := parse.FromReader(src)
+	l, err := lexer.FromReader(src)
+	if err != nil {
+		return fmt.Errorf("lexer: %w", err)
+	}
+
+	_, err = parse.Parse(l)
 	if err != nil {
 		return fmt.Errorf("parsing: %w", err)
 	}
-	explicit := doc.FromAst(ast)
-	dom := dom.Build(explicit)
-	font, err := text.LoadFont("Arial", 14)
-	if err != nil {
-		return fmt.Errorf("loading font: %w", err)
-	}
-	measured := measure.Measure(dom, font)
-	laid, bounding, err := lay.Out(measured)
-	if err != nil {
-		return fmt.Errorf("layout: %w", err)
-	}
-	canvas := image.NewNRGBA64(bounding.Bounds())
+
 	return nil
 }
