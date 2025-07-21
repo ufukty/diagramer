@@ -7,7 +7,7 @@ import (
 )
 
 func TestLifeline(t *testing.T) {
-	tcs := map[string]*Lifeline{
+	tcs := map[string]*LifelineDecl{
 		"actor a as Alice":       {Type: "actor", Name: "a", Alias: "Alice"},
 		"actor a":                {Type: "actor", Name: "a", Alias: ""},
 		"participant a as Alice": {Type: "participant", Name: "a", Alias: "Alice"},
@@ -17,7 +17,7 @@ func TestLifeline(t *testing.T) {
 	for _, input := range slices.Sorted(maps.Keys(tcs)) {
 		t.Run(input, func(t *testing.T) {
 			expected := tcs[input]
-			got := Lifeline(input)
+			got := mLifelineDecl(input)
 			if *got != *expected {
 				t.Errorf("expected %#v got %#v", expected, got)
 			}
@@ -34,7 +34,7 @@ func TestMessage(t *testing.T) {
 	for _, input := range slices.Sorted(maps.Keys(tcs)) {
 		t.Run(input, func(t *testing.T) {
 			expected := tcs[input]
-			got := Message(input)
+			got := mMessage(input)
 			if *got != *expected {
 				t.Errorf("expected %#v got %#v", expected, got)
 			}

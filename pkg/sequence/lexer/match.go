@@ -9,12 +9,12 @@ var (
 	regexMessage  = regexp.MustCompile(`([^\s-]+)\s*(?:->>[-+]?)\s*([^\s:]*)(?::\s*(.+))?`)
 )
 
-func lexLifeline(line string) *Lifeline {
+func mLifelineDecl(line string) *LifelineDecl {
 	match := regexLifeline.FindStringSubmatch(line)
 	if len(match) < 3 {
 		return nil
 	}
-	p := &Lifeline{
+	p := &LifelineDecl{
 		Type:  match[1],
 		Alias: "",
 		Name:  match[2],
@@ -25,7 +25,7 @@ func lexLifeline(line string) *Lifeline {
 	return p
 }
 
-func lexMessage(line string) *Message {
+func mMessage(line string) *Message {
 	match := regexMessage.FindStringSubmatch(line)
 	if len(match) < 4 {
 		return nil

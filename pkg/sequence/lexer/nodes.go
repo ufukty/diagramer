@@ -1,6 +1,6 @@
 package lexer
 
-type Lifeline struct {
+type LifelineDecl struct {
 	Type  string
 	Alias string
 	Name  string
@@ -56,6 +56,8 @@ type AltBlock struct {
 type Alt struct {
 	Blocks []AltBlock
 }
+
+// MARK: Diagram
 
 type DiagramOpts struct {
 	AutoNumber bool

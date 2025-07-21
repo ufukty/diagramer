@@ -32,12 +32,12 @@ func FromReader(src io.Reader) (*Diagram, error) {
 			diagram.Opts.AutoNumber = true
 
 		case strings.HasPrefix(line, "participant") || strings.HasPrefix(line, "actor"):
-			if ll := lexLifeline(line); ll != nil {
+			if ll := mLifelineDecl(line); ll != nil {
 				diagram.Stmts = append(diagram.Stmts, ll)
 			}
 
 		case strings.Contains(line, "->>"):
-			if m := lexMessage(line); m != nil {
+			if m := mMessage(line); m != nil {
 				diagram.Stmts = append(diagram.Stmts, m)
 			}
 

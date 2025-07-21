@@ -8,20 +8,35 @@ import (
 )
 
 func PrintDiagram(d *Diagram) {
-	fmt.Println("Lifelines:")
-	for _, p := range d.Lifelines {
-		fmt.Printf("  %s (%s)\n", p.Name, p.Alias)
-	}
-	fmt.Println("Messages:")
-	for _, m := range d.Messages {
-		fmt.Printf("  %s ->> %s: %s\n", m.From, m.To, m.Content)
+	for _, stmt := range d.Stmts {
+		fmt.Printf("%#v\n", stmt)
 	}
 }
 
-func findLifeline(diagram *Diagram, lifeline string) (*Lifeline, bool) {
-	i := slices.IndexFunc(diagram.Lifelines, func(ll *Lifeline) bool { return ll.Name == lifeline })
+func findLifeline(diagram *Diagram, lifeline string) (*LifelineDecl, bool) {
+	i := slices.IndexFunc(diagram.Stmts, func(s Stmt) bool {
+		ll, ok := s.(*LifelineDecl)
+		if !ok {
+			return false
+		}
+		return ll.Name == lifeline
+	})
 	if i != -1 {
-		return diagram.Lifelines[i], true
+		return diagram.Stmts[i].(*LifelineDecl), true
+	}
+	return nil, false
+}
+
+func findMessage(diagram *Diagram, from, to, content string) (*Message, bool) {
+	i := slices.IndexFunc(diagram.Stmts, func(s Stmt) bool {
+		m, ok := s.(*Message)
+		if !ok {
+			return false
+		}
+		return *m == Message{From: from, To: to, Content: content}
+	})
+	if i != -1 {
+		return diagram.Stmts[i].(*Message), true
 	}
 	return nil, false
 }
@@ -38,42 +53,36 @@ func TestFromReader(t *testing.T) {
 	}
 
 	// Check autoNumber
-	if !diagram.AutoNumber {
+	if !diagram.Opts.AutoNumber {
 		t.Errorf("Expected AutoNumber to be true")
 	}
 
-	// Check lifelines count
-	if len(diagram.Lifelines) != 7 {
-		t.Errorf("Expected 7 lifeliness, got %d", len(diagram.Lifelines))
+	expectedStmts := 24
+	if len(diagram.Stmts) != expectedStmts {
+		t.Errorf("Expected %d messages, got %d", expectedStmts, len(diagram.Stmts))
 	}
+	t.Run("find lifeline declaration for db", func(t *testing.T) {
+		db, ok := findLifeline(diagram, "db")
+		if !ok {
+			t.Errorf("Expected lifelines 'db' to exist")
+		} else if db.Alias != "Server Database" {
+			t.Errorf("Expected db name 'Server Database', got '%s'", db.Alias)
+		}
+	})
 
-	// Check specific lifelines names
+	t.Run("find lifeline declaration for u", func(t *testing.T) {
+		if u, ok := findLifeline(diagram, "u"); !ok {
+			t.Errorf("Expected lifelines 'u' to exist")
+		} else if u.Alias != "User" {
+			t.Errorf("Expected 'u' name 'User', got '%s'", u.Alias)
+		}
+	})
 
-	db, ok := findLifeline(diagram, "db")
-	if !ok {
-		t.Errorf("Expected lifelines 'db' to exist")
-	} else if db.Alias != "Server Database" {
-		t.Errorf("Expected db name 'Server Database', got '%s'", db.Alias)
-	}
-
-	u, ok := findLifeline(diagram, "u")
-	if !ok {
-		t.Errorf("Expected lifelines 'u' to exist")
-	} else if u.Alias != "User" {
-		t.Errorf("Expected 'u' name 'User', got '%s'", u.Alias)
-	}
-
-	// Check number of messages
-	expectedMsgs := 17
-	if len(diagram.Messages) != expectedMsgs {
-		t.Errorf("Expected %d messages, got %d", expectedMsgs, len(diagram.Messages))
-	}
-
-	// Check first message
-	firstMsg := diagram.Messages[0]
-	if firstMsg.From != "u" || firstMsg.To != "a" || firstMsg.Content != "opens the website" {
-		t.Errorf("First message parsed incorrectly: %+v", firstMsg)
-	}
+	t.Run("check the first message", func(t *testing.T) {
+		if m, ok := findMessage(diagram, "u", "a", "opens the website"); !ok {
+			t.Errorf("First message parsed incorrectly: %+v", m)
+		}
+	})
 
 	PrintDiagram(diagram)
 }
