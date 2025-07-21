@@ -1,0 +1,107 @@
+:root {
+  color-scheme: light dark;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: inherit;
+  font-family: inherit;
+  color: inherit;
+  font-weight: inherit;
+}
+
+html {
+  font-size: 16px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: light-dark(#444, #888);
+  background-color: light-dark(white, black);
+  font-weight: 400;
+}
+
+a {
+  text-decoration: none;
+}
+
+body {
+  padding: 20px;
+}
+
+.sequence {
+  display: grid;
+  grid-auto-columns: minmax(min-content, 1fr) 0 minmax(min-content, 1fr) 20px;
+  min-width: min-content;
+  justify-content: center;
+  position: relative;
+
+  resize: both;
+  word-wrap: anywhere;
+  hyphens: auto;
+
+  .participant {
+    border: 2px solid light-dark(#444, #aaa);
+    color: light-dark(#444, #eee);
+    padding: 10px 10px;
+    border-radius: 8px;
+    text-align: center;
+    width: 100%;
+    align-self: center;
+  }
+
+  .track {
+    justify-self: center;
+    border-right: 2px solid light-dark(#444, #444);
+    width: 0;
+  }
+
+  .message {
+    border-bottom: 2px solid light-dark(#444, #888);
+    color: light-dark(#444, #eee);
+    padding-bottom: 5px;
+    text-align: center;
+    position: relative;
+    margin: 10px 3px;
+    padding: 0 10px;
+
+    &:first-of-type {
+      margin-top: 20px;
+    }
+
+    &.to-left:after {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 10px;
+      height: 10px;
+      content: " ";
+      display: block;
+      border-left: 2px solid light-dark(#444, #888);
+      border-bottom: 2px solid light-dark(#444, #888);
+      transform: translate(10%, 55%) rotate(45deg);
+    }
+
+    &.to-right:after {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 10px;
+      height: 10px;
+      content: " ";
+      display: block;
+      border-right: 2px solid light-dark(#444, #888);
+      border-bottom: 2px solid light-dark(#444, #888);
+      transform: translate(-10%, 55%) rotate(-45deg);
+    }
+
+    transition: all 120ms ease-out;
+
+    &:hover {
+      &,
+      &:after {
+        color: red;
+        border-color: red;
+      }
+    }
+  }
+}

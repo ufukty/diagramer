@@ -7,22 +7,75 @@ import (
 	"github.com/ufukty/diagramer/pkg/sequence/parse/ast"
 )
 
-type Lifeline struct {
+type LifelineHead struct {
 	*ast.Lifeline // if available
 	Track         int
-	StepCreate    int
-	StepDestroy   int // the steps the lifeline gets created and destroyed
 }
 
 type Message struct {
 	Ast       *ast.Message
 	TrackFrom int
 	TrackTo   int
-	Step      int
 }
+
+type Note struct {
+	TrackFrom, TrackTo int
+}
+
+// MARK: Single block
+
+type Break struct {
+	Description string
+	Statements  []Stmt
+}
+
+type Loop struct {
+	Description string
+	Statements  []Stmt
+}
+
+// MARK: Multiple blocks
+
+type CriticalRegionBlock struct {
+	Description string
+	Statements  []Stmt
+}
+
+type CriticalRegion struct {
+	Blocks []CriticalRegionBlock
+}
+
+type ParallelBlock struct {
+	Description string
+	Statements  []Stmt
+}
+
+type Parallel struct {
+	Blocks []ParallelBlock
+}
+
+type AltBlock struct {
+	Description string
+	Statements  []Stmt
+}
+
+type Alt struct {
+	Blocks []AltBlock
+}
+
+type Stmt interface {
+	_stmt()
+}
+
+func (Alt) _stmt()            {}
+func (Break) _stmt()          {}
+func (CriticalRegion) _stmt() {}
+func (Loop) _stmt()           {}
+func (Message) _stmt()        {}
+func (Parallel) _stmt()       {}
 
 type Diagram struct {
 	Ast       *ast.Diagram
-	Lifelines []*Lifeline
-	Messages  []*Message
+	Lifelines []*LifelineHead
+	Stmts     []Stmt
 }

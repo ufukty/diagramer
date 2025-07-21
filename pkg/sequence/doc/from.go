@@ -13,9 +13,9 @@ func FromAst(src *ast.Diagram) *Diagram {
 	dst := &Diagram{}
 
 	occupied := tracks{}
-	lookup := map[string]*Lifeline{} // by actor/participant name
+	lookup := map[string]*LifelineHead{} // by actor/participant name
 	for _, ll := range src.Lifelines {
-		lookup[ll.Name] = &Lifeline{
+		lookup[ll.Name] = &LifelineHead{
 			Lifeline:    ll,
 			Track:       len(occupied),
 			StepCreate:  0,

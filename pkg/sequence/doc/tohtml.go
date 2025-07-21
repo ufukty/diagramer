@@ -1,4 +1,4 @@
-package dom
+package doc
 
 import (
 	"fmt"
@@ -31,6 +31,12 @@ func (n ParticipantHead) ToHtml() string {
 		SetChildren(
 			html.NewText(n.Alias),
 		).
+		ToHtml()
+}
+
+func (n LifelineLine) ToHtml() string {
+	return html.NewElement("div").
+		SetClassList("lifeline-line").
 		ToHtml()
 }
 
