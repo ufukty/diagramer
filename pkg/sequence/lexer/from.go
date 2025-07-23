@@ -8,6 +8,18 @@ import (
 	"strings"
 )
 
+func fromLine(line string) Line {
+	for _, constructor := range precedence {
+		if ok := constructor.check(line); !ok {
+			continue
+		}
+		if lm := constructor.construct(line); lm != nil {
+			return lm
+		}
+	}
+	return nil
+}
+
 func FromReader(src io.Reader) (*Diagram, error) {
 	diagram := &Diagram{
 		Lines: []Line{},
@@ -28,17 +40,10 @@ func FromReader(src io.Reader) (*Diagram, error) {
 		case line == "autoNumber":
 			diagram.Opts.AutoNumber = true
 
-		case strings.HasPrefix(line, "participant") || strings.HasPrefix(line, "actor"):
-			if ll := mLifelineDecl(line); ll != nil {
-				diagram.Lines = append(diagram.Lines, ll)
-			}
-
-		case strings.Contains(line, "->>"):
-			if m := mMessage(line); m != nil {
-				diagram.Lines = append(diagram.Lines, m)
-			}
-
 		default:
+			if l := fromLine(line); l != nil {
+				diagram.Lines = append(diagram.Lines, l)
+			}
 			fmt.Printf("skipping line #%d: %s\n", i, line)
 		}
 	}

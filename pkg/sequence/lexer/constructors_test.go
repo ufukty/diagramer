@@ -16,8 +16,11 @@ func TestLifeline(t *testing.T) {
 
 	for _, input := range slices.Sorted(maps.Keys(tcs)) {
 		t.Run(input, func(t *testing.T) {
+			if !(LifelineDecl{}).check(input) {
+				t.Errorf("checker has unexpectedly rejected the input")
+			}
 			expected := tcs[input]
-			got := mLifelineDecl(input)
+			got := (LifelineDecl{}).construct(input).(*LifelineDecl)
 			if *got != *expected {
 				t.Errorf("expected %#v got %#v", expected, got)
 			}
@@ -33,8 +36,11 @@ func TestMessage(t *testing.T) {
 
 	for _, input := range slices.Sorted(maps.Keys(tcs)) {
 		t.Run(input, func(t *testing.T) {
+			if !(Message{}).check(input) {
+				t.Errorf("checker has unexpectedly rejected the input")
+			}
 			expected := tcs[input]
-			got := mMessage(input)
+			got := (Message{}).construct(input).(*Message)
 			if *got != *expected {
 				t.Errorf("expected %#v got %#v", expected, got)
 			}
