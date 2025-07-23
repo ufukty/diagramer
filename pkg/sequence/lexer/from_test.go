@@ -8,13 +8,13 @@ import (
 )
 
 func PrintDiagram(d *Diagram) {
-	for _, stmt := range d.Stmts {
+	for _, stmt := range d.Lines {
 		fmt.Printf("%#v\n", stmt)
 	}
 }
 
-func findLifeline(diagram *Diagram, lifeline string) (*LifelineDecl, bool) {
-	i := slices.IndexFunc(diagram.Stmts, func(s Stmt) bool {
+func findLifelineDecl(diagram *Diagram, lifeline string) (*LifelineDecl, bool) {
+	i := slices.IndexFunc(diagram.Lines, func(s Line) bool {
 		ll, ok := s.(*LifelineDecl)
 		if !ok {
 			return false
@@ -22,13 +22,13 @@ func findLifeline(diagram *Diagram, lifeline string) (*LifelineDecl, bool) {
 		return ll.Name == lifeline
 	})
 	if i != -1 {
-		return diagram.Stmts[i].(*LifelineDecl), true
+		return diagram.Lines[i].(*LifelineDecl), true
 	}
 	return nil, false
 }
 
 func findMessage(diagram *Diagram, from, to, content string) (*Message, bool) {
-	i := slices.IndexFunc(diagram.Stmts, func(s Stmt) bool {
+	i := slices.IndexFunc(diagram.Lines, func(s Line) bool {
 		m, ok := s.(*Message)
 		if !ok {
 			return false
@@ -36,7 +36,7 @@ func findMessage(diagram *Diagram, from, to, content string) (*Message, bool) {
 		return *m == Message{From: from, To: to, Content: content}
 	})
 	if i != -1 {
-		return diagram.Stmts[i].(*Message), true
+		return diagram.Lines[i].(*Message), true
 	}
 	return nil, false
 }
@@ -57,12 +57,12 @@ func TestFromReader(t *testing.T) {
 		t.Errorf("Expected AutoNumber to be true")
 	}
 
-	expectedStmts := 24
-	if len(diagram.Stmts) != expectedStmts {
-		t.Errorf("Expected %d messages, got %d", expectedStmts, len(diagram.Stmts))
+	expectedLines := 24
+	if len(diagram.Lines) != expectedLines {
+		t.Errorf("Expected %d messages, got %d", expectedLines, len(diagram.Lines))
 	}
 	t.Run("find lifeline declaration for db", func(t *testing.T) {
-		db, ok := findLifeline(diagram, "db")
+		db, ok := findLifelineDecl(diagram, "db")
 		if !ok {
 			t.Errorf("Expected lifelines 'db' to exist")
 		} else if db.Alias != "Server Database" {
@@ -71,7 +71,7 @@ func TestFromReader(t *testing.T) {
 	})
 
 	t.Run("find lifeline declaration for u", func(t *testing.T) {
-		if u, ok := findLifeline(diagram, "u"); !ok {
+		if u, ok := findLifelineDecl(diagram, "u"); !ok {
 			t.Errorf("Expected lifelines 'u' to exist")
 		} else if u.Alias != "User" {
 			t.Errorf("Expected 'u' name 'User', got '%s'", u.Alias)

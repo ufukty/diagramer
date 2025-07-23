@@ -1,7 +1,4 @@
-// Package lexer builds a node tree representing the user doc.
-// The result differs from an AST with its lack to symbol based
-// input validation, and reference between symbols. It produces
-// an AST solely based on literal values.
+// Package lexer tokenizes the lines into nodes that has limited hierarchy.
 package lexer
 
 import (
@@ -13,7 +10,7 @@ import (
 
 func FromReader(src io.Reader) (*Diagram, error) {
 	diagram := &Diagram{
-		Stmts: []Stmt{},
+		Lines: []Line{},
 		Opts:  DiagramOpts{},
 	}
 
@@ -33,12 +30,12 @@ func FromReader(src io.Reader) (*Diagram, error) {
 
 		case strings.HasPrefix(line, "participant") || strings.HasPrefix(line, "actor"):
 			if ll := mLifelineDecl(line); ll != nil {
-				diagram.Stmts = append(diagram.Stmts, ll)
+				diagram.Lines = append(diagram.Lines, ll)
 			}
 
 		case strings.Contains(line, "->>"):
 			if m := mMessage(line); m != nil {
-				diagram.Stmts = append(diagram.Stmts, m)
+				diagram.Lines = append(diagram.Lines, m)
 			}
 
 		default:
