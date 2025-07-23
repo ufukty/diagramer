@@ -85,7 +85,7 @@ func Parse(l *lexer.Diagram) (*ast.Diagram, error) {
 	}
 
 	if len(errs) > 0 {
-		return nil, fmt.Errorf("found %s errors:\n", len(errs), strings.Join(errs, "\n"))
+		return nil, fmt.Errorf("found %d errors:\n%s", len(errs), strings.Join(errs, "\n"))
 	}
 
 	return diagram, nil
