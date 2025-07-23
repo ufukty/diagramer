@@ -17,10 +17,33 @@ func Parse(l *lexer.Diagram) (*ast.Diagram, error) {
 	errs := []string{}
 	lls := map[string]*ast.Lifeline{} // name => node
 	stack := []ast.ScopeDefining{}
-	for _, stmt := range l.Stmts {
+	for _, stmt := range l.Lines {
 		latest := stack[len(stack)-1]
 
 		switch stmt := stmt.(type) {
+
+		case *lexer.Activate:
+			panic("not implemented")
+		case *lexer.Alt:
+			panic("not implemented")
+		case *lexer.And:
+			panic("not implemented")
+		case *lexer.Box:
+			panic("not implemented")
+		case *lexer.Break:
+			panic("not implemented")
+		case *lexer.Create:
+			panic("not implemented")
+		case *lexer.Critical:
+			panic("not implemented")
+		case *lexer.Deactivate:
+			panic("not implemented")
+		case *lexer.Destroy:
+			panic("not implemented")
+		case *lexer.Else:
+			panic("not implemented")
+		case *lexer.End:
+			panic("not implemented")
 		case *lexer.LifelineDecl:
 			ll := &ast.Lifeline{
 				Type:  stmt.Type,
@@ -30,6 +53,8 @@ func Parse(l *lexer.Diagram) (*ast.Diagram, error) {
 			lls[ll.Name] = ll
 			latest.AppendStmt(ll)
 
+		case *lexer.Loop:
+			panic("not implemented")
 		case *lexer.Message:
 			from, ok := lls[stmt.From]
 			if !ok {
@@ -44,6 +69,15 @@ func Parse(l *lexer.Diagram) (*ast.Diagram, error) {
 				To:      to,
 				Content: stmt.Content,
 			})
+
+		case *lexer.Note:
+			panic("not implemented")
+		case *lexer.Option:
+			panic("not implemented")
+		case *lexer.Parallel:
+			panic("not implemented")
+		case *lexer.WideNote:
+			panic("not implemented")
 
 		default:
 			fmt.Printf("skipping #v\n")
