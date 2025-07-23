@@ -24,26 +24,37 @@ func Parse(l *lexer.Diagram) (*ast.Diagram, error) {
 
 		case *lexer.Activate:
 			panic("not implemented")
+
 		case *lexer.Alt:
 			panic("not implemented")
+
 		case *lexer.And:
 			panic("not implemented")
+
 		case *lexer.Box:
 			panic("not implemented")
+
 		case *lexer.Break:
 			panic("not implemented")
+
 		case *lexer.Create:
 			panic("not implemented")
+
 		case *lexer.Critical:
 			panic("not implemented")
+
 		case *lexer.Deactivate:
 			panic("not implemented")
+
 		case *lexer.Destroy:
 			panic("not implemented")
+
 		case *lexer.Else:
 			panic("not implemented")
+
 		case *lexer.End:
 			panic("not implemented")
+
 		case *lexer.LifelineDecl:
 			ll := &ast.Lifeline{
 				Type:  stmt.Type,
@@ -55,6 +66,7 @@ func Parse(l *lexer.Diagram) (*ast.Diagram, error) {
 
 		case *lexer.Loop:
 			panic("not implemented")
+
 		case *lexer.Message:
 			from, ok := lls[stmt.From]
 			if !ok {
@@ -72,10 +84,13 @@ func Parse(l *lexer.Diagram) (*ast.Diagram, error) {
 
 		case *lexer.Note:
 			panic("not implemented")
+
 		case *lexer.Option:
 			panic("not implemented")
+
 		case *lexer.Parallel:
 			panic("not implemented")
+
 		case *lexer.WideNote:
 			panic("not implemented")
 
