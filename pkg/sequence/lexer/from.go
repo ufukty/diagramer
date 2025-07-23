@@ -33,11 +33,11 @@ func FromReader(src io.Reader) (*Diagram, error) {
 			continue
 		}
 
-		switch {
-		case line == "sequenceDiagram":
+		switch line {
+		case "sequenceDiagram":
 			continue
 
-		case line == "autoNumber":
+		case "autoNumber":
 			diagram.Opts.AutoNumber = true
 
 		default:
