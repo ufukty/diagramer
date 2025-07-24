@@ -4,6 +4,8 @@ import (
 	"maps"
 	"slices"
 	"testing"
+
+	"github.com/ufukty/diagramer/pkg/sequence/lexer/tokens"
 )
 
 func TestActivate(t *testing.T) {
@@ -130,10 +132,8 @@ func TestCreate(t *testing.T) {
 
 func TestCritical(t *testing.T) {
 	tcs := map[string]*Critical{
-		"actor a as Alice":       {},
-		"actor a":                {},
-		"participant a as Alice": {},
-		"participant a":          {},
+		"critical":             {},
+		"critical description": {Description: "description"},
 	}
 
 	for _, input := range slices.Sorted(maps.Keys(tcs)) {
@@ -152,10 +152,7 @@ func TestCritical(t *testing.T) {
 
 func TestDeactivate(t *testing.T) {
 	tcs := map[string]*Deactivate{
-		"actor a as Alice":       {},
-		"actor a":                {},
-		"participant a as Alice": {},
-		"participant a":          {},
+		"deactivate a": {Lifeline: "a"},
 	}
 
 	for _, input := range slices.Sorted(maps.Keys(tcs)) {
@@ -193,10 +190,8 @@ func TestDestroy(t *testing.T) {
 
 func TestElse(t *testing.T) {
 	tcs := map[string]*Else{
-		"actor a as Alice":       {},
-		"actor a":                {},
-		"participant a as Alice": {},
-		"participant a":          {},
+		"else":             {},
+		"else description": {Description: "description"},
 	}
 
 	for _, input := range slices.Sorted(maps.Keys(tcs)) {
@@ -215,10 +210,7 @@ func TestElse(t *testing.T) {
 
 func TestEnd(t *testing.T) {
 	tcs := map[string]*End{
-		"actor a as Alice":       {},
-		"actor a":                {},
-		"participant a as Alice": {},
-		"participant a":          {},
+		"end": {},
 	}
 
 	for _, input := range slices.Sorted(maps.Keys(tcs)) {
@@ -259,10 +251,8 @@ func TestLifelineDecl(t *testing.T) {
 
 func TestLoop(t *testing.T) {
 	tcs := map[string]*Loop{
-		"actor a as Alice":       {},
-		"actor a":                {},
-		"participant a as Alice": {},
-		"participant a":          {},
+		"loop":             {},
+		"loop description": {Description: "description"},
 	}
 
 	for _, input := range slices.Sorted(maps.Keys(tcs)) {
@@ -281,8 +271,12 @@ func TestLoop(t *testing.T) {
 
 func TestMessage(t *testing.T) {
 	tcs := map[string]*Message{
-		"a->>b":      {From: "a", To: "b", Content: ""},
-		"a->>b: ACK": {From: "a", To: "b", Content: "ACK"},
+		"a->>b-: ACK": {From: "a", To: "b", Content: "ACK", Activation: tokens.Deactivate},
+		"a->>b-":      {From: "a", To: "b", Content: "", Activation: tokens.Deactivate},
+		"a->>b: ACK":  {From: "a", To: "b", Content: "ACK"},
+		"a->>b":       {From: "a", To: "b", Content: ""},
+		"a->>b+: ACK": {From: "a", To: "b", Content: "ACK", Activation: tokens.Activate},
+		"a->>b+":      {From: "a", To: "b", Content: "", Activation: tokens.Activate},
 	}
 
 	for _, input := range slices.Sorted(maps.Keys(tcs)) {
@@ -301,10 +295,9 @@ func TestMessage(t *testing.T) {
 
 func TestNote(t *testing.T) {
 	tcs := map[string]*Note{
-		"actor a as Alice":       {},
-		"actor a":                {},
-		"participant a as Alice": {},
-		"participant a":          {},
+		"note left of a: lorem ipsum":  {Lifeline: "a", Content: "lorem ipsum", Pos: tokens.LeftOf},
+		"note over a: lorem ipsum":     {Lifeline: "a", Content: "lorem ipsum", Pos: tokens.Over},
+		"note right of a: lorem ipsum": {Lifeline: "a", Content: "lorem ipsum", Pos: tokens.RightOf},
 	}
 
 	for _, input := range slices.Sorted(maps.Keys(tcs)) {
@@ -323,10 +316,8 @@ func TestNote(t *testing.T) {
 
 func TestOption(t *testing.T) {
 	tcs := map[string]*Option{
-		"actor a as Alice":       {},
-		"actor a":                {},
-		"participant a as Alice": {},
-		"participant a":          {},
+		"opt":             {},
+		"opt description": {Description: "description"},
 	}
 
 	for _, input := range slices.Sorted(maps.Keys(tcs)) {
@@ -345,10 +336,8 @@ func TestOption(t *testing.T) {
 
 func TestParallel(t *testing.T) {
 	tcs := map[string]*Parallel{
-		"actor a as Alice":       {},
-		"actor a":                {},
-		"participant a as Alice": {},
-		"participant a":          {},
+		"par":        {},
+		"par action": {Action: "action"},
 	}
 
 	for _, input := range slices.Sorted(maps.Keys(tcs)) {
@@ -367,10 +356,8 @@ func TestParallel(t *testing.T) {
 
 func TestWideNote(t *testing.T) {
 	tcs := map[string]*WideNote{
-		"actor a as Alice":       {},
-		"actor a":                {},
-		"participant a as Alice": {},
-		"participant a":          {},
+		"note over a, b: lorem ipsum": {From: "a", To: "b", Content: "lorem ipsum"},
+		"note over a,b: lorem ipsum":  {From: "a", To: "b", Content: "lorem ipsum"},
 	}
 
 	for _, input := range slices.Sorted(maps.Keys(tcs)) {
