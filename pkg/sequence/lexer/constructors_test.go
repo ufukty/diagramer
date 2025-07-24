@@ -6,6 +6,50 @@ import (
 	"testing"
 )
 
+func TestActivate(t *testing.T) {
+	t.Fatal("not implemented")
+}
+
+func TestAlt(t *testing.T) {
+	t.Fatal("not implemented")
+}
+
+func TestAnd(t *testing.T) {
+	t.Fatal("not implemented")
+}
+
+func TestBox(t *testing.T) {
+	t.Fatal("not implemented")
+}
+
+func TestBreak(t *testing.T) {
+	t.Fatal("not implemented")
+}
+
+func TestCreate(t *testing.T) {
+	t.Fatal("not implemented")
+}
+
+func TestCritical(t *testing.T) {
+	t.Fatal("not implemented")
+}
+
+func TestDeactivate(t *testing.T) {
+	t.Fatal("not implemented")
+}
+
+func TestDestroy(t *testing.T) {
+	t.Fatal("not implemented")
+}
+
+func TestElse(t *testing.T) {
+	t.Fatal("not implemented")
+}
+
+func TestEnd(t *testing.T) {
+	t.Fatal("not implemented")
+}
+
 func TestLifeline(t *testing.T) {
 	tcs := map[string]*LifelineDecl{
 		"actor a as Alice":       {Type: "actor", Name: "a", Alias: "Alice"},
@@ -28,6 +72,10 @@ func TestLifeline(t *testing.T) {
 	}
 }
 
+func TestLoop(t *testing.T) {
+	t.Fatal("not implemented")
+}
+
 func TestMessage(t *testing.T) {
 	tcs := map[string]*Message{
 		"a->>b":      {From: "a", To: "b", Content: ""},
@@ -46,4 +94,20 @@ func TestMessage(t *testing.T) {
 			}
 		})
 	}
+}
+
+func TestNote(t *testing.T) {
+	t.Fatal("not implemented")
+}
+
+func TestOption(t *testing.T) {
+	t.Fatal("not implemented")
+}
+
+func TestParallel(t *testing.T) {
+	t.Fatal("not implemented")
+}
+
+func TestWideNote(t *testing.T) {
+	t.Fatal("not implemented")
 }
