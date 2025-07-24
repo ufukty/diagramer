@@ -50,7 +50,7 @@ func TestEnd(t *testing.T) {
 	t.Fatal("not implemented")
 }
 
-func TestLifeline(t *testing.T) {
+func TestLifelineDecl(t *testing.T) {
 	tcs := map[string]*LifelineDecl{
 		"actor a as Alice":       {Type: "actor", Name: "a", Alias: "Alice"},
 		"actor a":                {Type: "actor", Name: "a", Alias: ""},
