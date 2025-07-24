@@ -7,47 +7,232 @@ import (
 )
 
 func TestActivate(t *testing.T) {
-	t.Fatal("not implemented")
+	tcs := map[string]*Activate{
+		"activate":   {Lifeline: ""},
+		"activate a": {Lifeline: "a"},
+	}
+
+	for _, input := range slices.Sorted(maps.Keys(tcs)) {
+		t.Run(input, func(t *testing.T) {
+			if !(Activate{}).check(input) {
+				t.Errorf("checker has unexpectedly rejected the input")
+			}
+			expected := tcs[input]
+			got := (Activate{}).construct(input).(*Activate)
+			if *got != *expected {
+				t.Errorf("expected %#v got %#v", expected, got)
+			}
+		})
+	}
 }
 
 func TestAlt(t *testing.T) {
-	t.Fatal("not implemented")
+	tcs := map[string]*Alt{
+		"alt":             {},
+		"alt description": {Description: "description"},
+	}
+
+	for _, input := range slices.Sorted(maps.Keys(tcs)) {
+		t.Run(input, func(t *testing.T) {
+			if !(Alt{}).check(input) {
+				t.Errorf("checker has unexpectedly rejected the input")
+			}
+			expected := tcs[input]
+			got := (Alt{}).construct(input).(*Alt)
+			if *got != *expected {
+				t.Errorf("expected %#v got %#v", expected, got)
+			}
+		})
+	}
 }
 
 func TestAnd(t *testing.T) {
-	t.Fatal("not implemented")
+	tcs := map[string]*And{
+		"and":             {Action: "and"},
+		"and action-name": {Action: "action-name"},
+	}
+
+	for _, input := range slices.Sorted(maps.Keys(tcs)) {
+		t.Run(input, func(t *testing.T) {
+			if !(And{}).check(input) {
+				t.Errorf("checker has unexpectedly rejected the input")
+			}
+			expected := tcs[input]
+			got := (And{}).construct(input).(*And)
+			if *got != *expected {
+				t.Errorf("expected %#v got %#v", expected, got)
+			}
+		})
+	}
 }
 
 func TestBox(t *testing.T) {
-	t.Fatal("not implemented")
+	tcs := map[string]*Box{
+		"box title":             {Title: "title"},
+		"box transparent title": {Color: "color", Title: "title"},
+	}
+
+	for _, input := range slices.Sorted(maps.Keys(tcs)) {
+		t.Run(input, func(t *testing.T) {
+			if !(Box{}).check(input) {
+				t.Errorf("checker has unexpectedly rejected the input")
+			}
+			expected := tcs[input]
+			got := (Box{}).construct(input).(*Box)
+			if *got != *expected {
+				t.Errorf("expected %#v got %#v", expected, got)
+			}
+		})
+	}
 }
 
 func TestBreak(t *testing.T) {
-	t.Fatal("not implemented")
+	tcs := map[string]*Break{
+		"break":             {},
+		"break description": {Description: "description"},
+	}
+
+	for _, input := range slices.Sorted(maps.Keys(tcs)) {
+		t.Run(input, func(t *testing.T) {
+			if !(Break{}).check(input) {
+				t.Errorf("checker has unexpectedly rejected the input")
+			}
+			expected := tcs[input]
+			got := (Break{}).construct(input).(*Break)
+			if *got != *expected {
+				t.Errorf("expected %#v got %#v", expected, got)
+			}
+		})
+	}
 }
 
 func TestCreate(t *testing.T) {
-	t.Fatal("not implemented")
+	tcs := map[string]*Create{
+		"create actor a as Alice":       {LifelineDecl: LifelineDecl{Type: "actor", Name: "a", Alias: "Alice"}},
+		"create actor a":                {LifelineDecl: LifelineDecl{Type: "actor", Name: "a", Alias: ""}},
+		"create participant a as Alice": {LifelineDecl: LifelineDecl{Type: "participant", Name: "a", Alias: "Alice"}},
+		"create participant a":          {LifelineDecl: LifelineDecl{Type: "participant", Name: "a", Alias: ""}},
+	}
+
+	for _, input := range slices.Sorted(maps.Keys(tcs)) {
+		t.Run(input, func(t *testing.T) {
+			if !(Create{}).check(input) {
+				t.Errorf("checker has unexpectedly rejected the input")
+			}
+			expected := tcs[input]
+			got := (Create{}).construct(input).(*Create)
+			if *got != *expected {
+				t.Errorf("expected %#v got %#v", expected, got)
+			}
+		})
+	}
 }
 
 func TestCritical(t *testing.T) {
-	t.Fatal("not implemented")
+	tcs := map[string]*Critical{
+		"actor a as Alice":       {},
+		"actor a":                {},
+		"participant a as Alice": {},
+		"participant a":          {},
+	}
+
+	for _, input := range slices.Sorted(maps.Keys(tcs)) {
+		t.Run(input, func(t *testing.T) {
+			if !(Critical{}).check(input) {
+				t.Errorf("checker has unexpectedly rejected the input")
+			}
+			expected := tcs[input]
+			got := (Critical{}).construct(input).(*Critical)
+			if *got != *expected {
+				t.Errorf("expected %#v got %#v", expected, got)
+			}
+		})
+	}
 }
 
 func TestDeactivate(t *testing.T) {
-	t.Fatal("not implemented")
+	tcs := map[string]*Deactivate{
+		"actor a as Alice":       {},
+		"actor a":                {},
+		"participant a as Alice": {},
+		"participant a":          {},
+	}
+
+	for _, input := range slices.Sorted(maps.Keys(tcs)) {
+		t.Run(input, func(t *testing.T) {
+			if !(Deactivate{}).check(input) {
+				t.Errorf("checker has unexpectedly rejected the input")
+			}
+			expected := tcs[input]
+			got := (Deactivate{}).construct(input).(*Deactivate)
+			if *got != *expected {
+				t.Errorf("expected %#v got %#v", expected, got)
+			}
+		})
+	}
 }
 
 func TestDestroy(t *testing.T) {
-	t.Fatal("not implemented")
+	tcs := map[string]*Destroy{
+		"destroy a": {Name: "a"},
+	}
+
+	for _, input := range slices.Sorted(maps.Keys(tcs)) {
+		t.Run(input, func(t *testing.T) {
+			if !(Destroy{}).check(input) {
+				t.Errorf("checker has unexpectedly rejected the input")
+			}
+			expected := tcs[input]
+			got := (Destroy{}).construct(input).(*Destroy)
+			if *got != *expected {
+				t.Errorf("expected %#v got %#v", expected, got)
+			}
+		})
+	}
 }
 
 func TestElse(t *testing.T) {
-	t.Fatal("not implemented")
+	tcs := map[string]*Else{
+		"actor a as Alice":       {},
+		"actor a":                {},
+		"participant a as Alice": {},
+		"participant a":          {},
+	}
+
+	for _, input := range slices.Sorted(maps.Keys(tcs)) {
+		t.Run(input, func(t *testing.T) {
+			if !(Else{}).check(input) {
+				t.Errorf("checker has unexpectedly rejected the input")
+			}
+			expected := tcs[input]
+			got := (Else{}).construct(input).(*Else)
+			if *got != *expected {
+				t.Errorf("expected %#v got %#v", expected, got)
+			}
+		})
+	}
 }
 
 func TestEnd(t *testing.T) {
-	t.Fatal("not implemented")
+	tcs := map[string]*End{
+		"actor a as Alice":       {},
+		"actor a":                {},
+		"participant a as Alice": {},
+		"participant a":          {},
+	}
+
+	for _, input := range slices.Sorted(maps.Keys(tcs)) {
+		t.Run(input, func(t *testing.T) {
+			if !(End{}).check(input) {
+				t.Errorf("checker has unexpectedly rejected the input")
+			}
+			expected := tcs[input]
+			got := (End{}).construct(input).(*End)
+			if *got != *expected {
+				t.Errorf("expected %#v got %#v", expected, got)
+			}
+		})
+	}
 }
 
 func TestLifelineDecl(t *testing.T) {
@@ -73,7 +258,25 @@ func TestLifelineDecl(t *testing.T) {
 }
 
 func TestLoop(t *testing.T) {
-	t.Fatal("not implemented")
+	tcs := map[string]*Loop{
+		"actor a as Alice":       {},
+		"actor a":                {},
+		"participant a as Alice": {},
+		"participant a":          {},
+	}
+
+	for _, input := range slices.Sorted(maps.Keys(tcs)) {
+		t.Run(input, func(t *testing.T) {
+			if !(Loop{}).check(input) {
+				t.Errorf("checker has unexpectedly rejected the input")
+			}
+			expected := tcs[input]
+			got := (Loop{}).construct(input).(*Loop)
+			if *got != *expected {
+				t.Errorf("expected %#v got %#v", expected, got)
+			}
+		})
+	}
 }
 
 func TestMessage(t *testing.T) {
@@ -97,17 +300,89 @@ func TestMessage(t *testing.T) {
 }
 
 func TestNote(t *testing.T) {
-	t.Fatal("not implemented")
+	tcs := map[string]*Note{
+		"actor a as Alice":       {},
+		"actor a":                {},
+		"participant a as Alice": {},
+		"participant a":          {},
+	}
+
+	for _, input := range slices.Sorted(maps.Keys(tcs)) {
+		t.Run(input, func(t *testing.T) {
+			if !(Note{}).check(input) {
+				t.Errorf("checker has unexpectedly rejected the input")
+			}
+			expected := tcs[input]
+			got := (Note{}).construct(input).(*Note)
+			if *got != *expected {
+				t.Errorf("expected %#v got %#v", expected, got)
+			}
+		})
+	}
 }
 
 func TestOption(t *testing.T) {
-	t.Fatal("not implemented")
+	tcs := map[string]*Option{
+		"actor a as Alice":       {},
+		"actor a":                {},
+		"participant a as Alice": {},
+		"participant a":          {},
+	}
+
+	for _, input := range slices.Sorted(maps.Keys(tcs)) {
+		t.Run(input, func(t *testing.T) {
+			if !(Option{}).check(input) {
+				t.Errorf("checker has unexpectedly rejected the input")
+			}
+			expected := tcs[input]
+			got := (Option{}).construct(input).(*Option)
+			if *got != *expected {
+				t.Errorf("expected %#v got %#v", expected, got)
+			}
+		})
+	}
 }
 
 func TestParallel(t *testing.T) {
-	t.Fatal("not implemented")
+	tcs := map[string]*Parallel{
+		"actor a as Alice":       {},
+		"actor a":                {},
+		"participant a as Alice": {},
+		"participant a":          {},
+	}
+
+	for _, input := range slices.Sorted(maps.Keys(tcs)) {
+		t.Run(input, func(t *testing.T) {
+			if !(Parallel{}).check(input) {
+				t.Errorf("checker has unexpectedly rejected the input")
+			}
+			expected := tcs[input]
+			got := (Parallel{}).construct(input).(*Parallel)
+			if *got != *expected {
+				t.Errorf("expected %#v got %#v", expected, got)
+			}
+		})
+	}
 }
 
 func TestWideNote(t *testing.T) {
-	t.Fatal("not implemented")
+	tcs := map[string]*WideNote{
+		"actor a as Alice":       {},
+		"actor a":                {},
+		"participant a as Alice": {},
+		"participant a":          {},
+	}
+
+	for _, input := range slices.Sorted(maps.Keys(tcs)) {
+		t.Run(input, func(t *testing.T) {
+			if !(WideNote{}).check(input) {
+				t.Errorf("checker has unexpectedly rejected the input")
+			}
+			expected := tcs[input]
+			got := (WideNote{}).construct(input).(*WideNote)
+			if *got != *expected {
+				t.Errorf("expected %#v got %#v", expected, got)
+			}
+		})
+	}
 }

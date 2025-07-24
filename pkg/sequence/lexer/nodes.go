@@ -15,7 +15,7 @@ type Create struct {
 }
 
 type Destroy struct {
-	LifelineDecl
+	Name string
 }
 
 // Box expects [End]
