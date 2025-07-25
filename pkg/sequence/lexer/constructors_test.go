@@ -32,6 +32,7 @@ func TestAlt(t *testing.T) {
 	tcs := map[string]*Alt{
 		"alt":             {},
 		"alt description": {Description: "description"},
+		"alt abc 123 +%&": {Description: "abc 123 +%&"},
 	}
 
 	for _, input := range slices.Sorted(maps.Keys(tcs)) {

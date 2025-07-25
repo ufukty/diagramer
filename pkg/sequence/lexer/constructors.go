@@ -1,22 +1,52 @@
 package lexer
 
-import "regexp"
+import (
+	"regexp"
+	"strings"
+)
 
 var (
-	regexLifeline = regexp.MustCompile(`(participant|actor)\s+(\w+)(?:\s+as\s+(.+))?`)
-	regexMessage  = regexp.MustCompile(`([^\s-]+)\s*(?:->>[-+]?)\s*([^\s:]*)(?::\s*(.+))?`)
+	regexActivate   = regexp.MustCompile(`activate\s+(\w+)`)
+	regexAlt        = regexp.MustCompile(`alt\s+(.+)`)
+	regexAnd        = regexp.MustCompile(`and\s+(.+)`)
+	regexBox        = regexp.MustCompile(``)
+	regexBreak      = regexp.MustCompile(`break\s+(.+)`)
+	regexCritical   = regexp.MustCompile(`critical\s+(.+)`)
+	regexDeactivate = regexp.MustCompile(`deactivate\s+(\w+)`)
+	regexDestroy    = regexp.MustCompile(`destroy\s+(\w+)`)
+	regexElse       = regexp.MustCompile(``)
+	regexEnd        = regexp.MustCompile(``)
+	regexLifeline   = regexp.MustCompile(`(participant|actor)\s+(\w+)(?:\s+as\s+(.+))?`)
+	regexLoop       = regexp.MustCompile(``)
+	regexMessage    = regexp.MustCompile(`([^\s-]+)\s*(?:->>[-+]?)\s*([^\s:]*)(?::\s*(.+))?`)
+	regexNote       = regexp.MustCompile(``)
+	regexOption     = regexp.MustCompile(``)
+	regexParallel   = regexp.MustCompile(``)
+	regexWideNote   = regexp.MustCompile(``)
 )
 
 func (Activate) construct(line string) Line {
-	panic("not implemented")
+	a := &Activate{}
+	if ms := regexActivate.FindStringSubmatch(line); len(ms) > 0 {
+		a.Lifeline = ms[1]
+	}
+	return a
 }
 
 func (Alt) construct(line string) Line {
-	panic("not implemented")
+	a := &Alt{}
+	if ms := regexAlt.FindStringSubmatch(line); len(ms) > 0 {
+		a.Description = ms[1]
+	}
+	return a
 }
 
 func (And) construct(line string) Line {
-	panic("not implemented")
+	a := &And{}
+	if ms := regexAnd.FindStringSubmatch(line); len(ms) > 0 {
+		a.Action = ms[1]
+	}
+	return a
 }
 
 func (Box) construct(line string) Line {
@@ -24,31 +54,58 @@ func (Box) construct(line string) Line {
 }
 
 func (Break) construct(line string) Line {
-	panic("not implemented")
+	a := &Break{}
+	if ms := regexBreak.FindStringSubmatch(line); len(ms) > 0 {
+		a.Description = ms[1]
+	}
+	return a
 }
 
+var lifelineDecl = &LifelineDecl{}
+
 func (Create) construct(line string) Line {
-	panic("not implemented")
+	a := &Create{}
+	if ld := lifelineDecl.construct(strings.TrimSpace(strings.TrimPrefix(line, "create"))); ld != nil {
+		if ld, ok := ld.(*LifelineDecl); ok {
+			a.LifelineDecl = *ld
+		}
+	}
+	return a
 }
 
 func (Critical) construct(line string) Line {
-	panic("not implemented")
+	a := &Critical{}
+	if ms := regexCritical.FindStringSubmatch(line); len(ms) > 0 {
+	}
+	return a
 }
 
 func (Deactivate) construct(line string) Line {
-	panic("not implemented")
+	a := &Deactivate{}
+	if ms := regexDeactivate.FindStringSubmatch(line); len(ms) > 0 {
+	}
+	return a
 }
 
 func (Destroy) construct(line string) Line {
-	panic("not implemented")
+	a := &Destroy{}
+	if ms := regexDestroy.FindStringSubmatch(line); len(ms) > 0 {
+	}
+	return a
 }
 
 func (Else) construct(line string) Line {
-	panic("not implemented")
+	a := &Else{}
+	if ms := regexElse.FindStringSubmatch(line); len(ms) > 0 {
+	}
+	return a
 }
 
 func (End) construct(line string) Line {
-	panic("not implemented")
+	a := &End{}
+	if ms := regexEnd.FindStringSubmatch(line); len(ms) > 0 {
+	}
+	return a
 }
 
 func (LifelineDecl) construct(line string) Line {
@@ -68,7 +125,10 @@ func (LifelineDecl) construct(line string) Line {
 }
 
 func (Loop) construct(line string) Line {
-	panic("not implemented")
+	a := &Loop{}
+	if ms := regexLoop.FindStringSubmatch(line); len(ms) > 0 {
+	}
+	return a
 }
 
 func (Message) construct(line string) Line {
@@ -88,17 +148,29 @@ func (Message) construct(line string) Line {
 }
 
 func (Note) construct(line string) Line {
-	panic("not implemented")
+	a := &Note{}
+	if ms := regexNote.FindStringSubmatch(line); len(ms) > 0 {
+	}
+	return a
 }
 
 func (Option) construct(line string) Line {
-	panic("not implemented")
+	a := &Option{}
+	if ms := regexOption.FindStringSubmatch(line); len(ms) > 0 {
+	}
+	return a
 }
 
 func (Parallel) construct(line string) Line {
-	panic("not implemented")
+	a := &Parallel{}
+	if ms := regexParallel.FindStringSubmatch(line); len(ms) > 0 {
+	}
+	return a
 }
 
 func (WideNote) construct(line string) Line {
-	panic("not implemented")
+	a := &WideNote{}
+	if ms := regexWideNote.FindStringSubmatch(line); len(ms) > 0 {
+	}
+	return a
 }
