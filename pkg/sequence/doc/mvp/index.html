@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <meta name="description" content="">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+
+  <body>
+    <div class="sequence">
+      <div class="participant" style="grid-column: 1 / 4; grid-row: 1 / 2">Alice</div>
+      <div class="participant" style="grid-column: 5 / 8; grid-row: 1 / 2">Bob</div>
+
+      <div class="track" style="grid-column: 2 / 3; grid-row: 2 / 5"></div>
+      <div class="track" style="grid-column: 6 / 7; grid-row: 2 / 12"></div>
+
+      <div class="message to-right" style="grid-column: 3 / 7; grid-row: 2 / 3">SYN</div>
+      <div class="message to-left" style="grid-column: 3 / 7; grid-row: 3 / 4">SYN-ACKNOWLEDGE</div>
+      <div class="message to-right" style="grid-column: 3 / 7; grid-row: 4 / 5">ACK</div>
+
+      <div class="participant" style="grid-column: 9 / 12; grid-row: 5 / 8">Charlie</div>
+      <div class="message to-right" style="grid-column: 7 / 9; grid-row: 6 / 6">Create</div>
+      <div class="track" style="grid-column: 10 / 11; grid-row: 8 / 12"></div>
+
+      <div class="message to-right" style="grid-column: 7 / 11; grid-row: 8 / 9">SYN</div>
+      <div class="message to-left" style="grid-column: 7 / 11; grid-row: 9 / 10">SYN-ACKNOWLEDGE</div>
+      <div class="message to-right" style="grid-column: 7 / 11; grid-row: 11 / 12">ACK</div>
+    </div>
+  </body>
+
+</html>
