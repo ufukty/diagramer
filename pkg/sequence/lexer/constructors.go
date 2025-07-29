@@ -9,7 +9,7 @@ var (
 	regexActivate   = regexp.MustCompile(`activate\s+(\w+)`)
 	regexAlt        = regexp.MustCompile(`alt\s+(.+)`)
 	regexAnd        = regexp.MustCompile(`and\s+(.+)`)
-	regexBox        = regexp.MustCompile(``)
+	regexBox        = regexp.MustCompile(`box(\s+#[0-9A-Fa-f]{6})?\s+(.*)`)
 	regexBreak      = regexp.MustCompile(`break\s+(.+)`)
 	regexCritical   = regexp.MustCompile(`critical\s+(.+)`)
 	regexDeactivate = regexp.MustCompile(`deactivate\s+(\w+)`)
@@ -50,7 +50,14 @@ func (And) construct(line string) Line {
 }
 
 func (Box) construct(line string) Line {
-	panic("not implemented")
+	a := &Box{}
+	if ms := regexAnd.FindStringSubmatch(line); len(ms)-1 == 2 {
+		a.Color = ms[1]
+		a.Title = ms[2]
+	} else if len(ms)-1 == 1 {
+		a.Title = ms[1]
+	}
+	return a
 }
 
 func (Break) construct(line string) Line {
