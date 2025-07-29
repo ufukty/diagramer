@@ -42,7 +42,7 @@ func findMessage(diagram *Diagram, from, to, content string) (*Message, bool) {
 }
 
 func TestFromReader(t *testing.T) {
-	file, err := os.Open("testdata/1.txt")
+	file, err := os.Open("testdata/1.mmd")
 	if err != nil {
 		t.Fatalf("prep, open file: %v", err)
 	}

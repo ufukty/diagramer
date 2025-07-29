@@ -8,7 +8,7 @@ actor Bob as Bob Boisonn
 Alice->>+Bob: Hello Bob, are you busy?
 Alice->>+Bob: Bob, can you hear me?
 Bob->>Bob: 🤔 Who is Alice?
-Note over Alice,Bob: Bob is working for Alice
+note over Alice,Bob: Bob is working for Alice
 Bob->>-Alice: Hi Alice, I can hear you!
 Bob->>-Alice: I am a lil'bit.
 
@@ -58,9 +58,9 @@ loop Every minute
 
   opt Extra response
     break Very existential one
-    Note left of Bob: What am I doing here?
-    Note over Bob: Am I wasting my whole life?
-    Note right of Bob: For what?
+    note left of Bob: What am I doing here?
+    note over Bob: Am I wasting my whole life?
+    note right of Bob: For what?
     destroy Bob
     Bob->>Alice: Resign
     end
