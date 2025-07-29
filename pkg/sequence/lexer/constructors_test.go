@@ -51,7 +51,7 @@ func TestAlt(t *testing.T) {
 
 func TestAnd(t *testing.T) {
 	tcs := map[string]*And{
-		"and":             {Action: "and"},
+		"and":             {},
 		"and action-name": {Action: "action-name"},
 	}
 
