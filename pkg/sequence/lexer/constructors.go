@@ -9,7 +9,7 @@ var (
 	regexActivate   = regexp.MustCompile(`activate\s+(\w+)`)
 	regexAlt        = regexp.MustCompile(`alt\s+(.+)`)
 	regexAnd        = regexp.MustCompile(`and\s+(.+)`)
-	regexBox        = regexp.MustCompile(`box(\s+#[0-9A-Fa-f]{6})?\s+(.*)`)
+	regexBox        = regexp.MustCompile(`box(?:\s+(#[0-9A-Fa-f]{3,8}))?(?:\s+([^#].*))?`)
 	regexBreak      = regexp.MustCompile(`break\s+(.+)`)
 	regexCritical   = regexp.MustCompile(`critical\s+(.+)`)
 	regexDeactivate = regexp.MustCompile(`deactivate\s+(\w+)`)
