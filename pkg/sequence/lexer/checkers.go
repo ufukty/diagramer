@@ -67,11 +67,11 @@ func (Note) check(line string) bool {
 }
 
 func (Option) check(line string) bool {
-	return startsWith(strings.TrimSpace(line), "option")
+	return startsWith(strings.TrimSpace(line), "opt")
 }
 
 func (Parallel) check(line string) bool {
-	return startsWith(strings.TrimSpace(line), "parallel")
+	return startsWith(strings.TrimSpace(line), "par")
 }
 
 func (WideNote) check(line string) bool {
