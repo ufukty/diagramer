@@ -12,5 +12,5 @@ type NotePos string
 const (
 	Over    NotePos = "over"
 	LeftOf  NotePos = "left of"
-	RightOf NotePos = "rightOf"
+	RightOf NotePos = "right of"
 )
