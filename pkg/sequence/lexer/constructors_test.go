@@ -364,6 +364,7 @@ func TestParallel(t *testing.T) {
 func TestWideNote(t *testing.T) {
 	tcs := map[string]*WideNote{
 		"note over a, b: lorem ipsum": {From: "a", To: "b", Content: "lorem ipsum"},
+		"note over a, b":              {From: "a", To: "b"},
 		"note over a,b: lorem ipsum":  {From: "a", To: "b", Content: "lorem ipsum"},
 	}
 
