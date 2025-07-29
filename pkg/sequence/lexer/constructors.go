@@ -51,11 +51,9 @@ func (And) construct(line string) Line {
 
 func (Box) construct(line string) Line {
 	a := &Box{}
-	if ms := regexAnd.FindStringSubmatch(line); len(ms)-1 == 2 {
+	if ms := regexBox.FindStringSubmatch(line); len(ms) > 2 {
 		a.Color = ms[1]
 		a.Title = ms[2]
-	} else if len(ms)-1 == 1 {
-		a.Title = ms[1]
 	}
 	return a
 }

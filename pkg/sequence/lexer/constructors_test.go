@@ -71,8 +71,14 @@ func TestAnd(t *testing.T) {
 
 func TestBox(t *testing.T) {
 	tcs := map[string]*Box{
-		"box title":             {Title: "title"},
-		"box transparent title": {Color: "color", Title: "title"},
+		"box #000 title":      {Color: "#000", Title: "title"},
+		"box #000":            {Color: "#000"},
+		"box #0000 title":     {Color: "#0000", Title: "title"},
+		"box #000000 title":   {Color: "#000000", Title: "title"},
+		"box #00000000 title": {Color: "#00000000", Title: "title"},
+		"box t#000":           {Title: "t#000"},
+		"box title #000":      {Title: "title #000"},
+		"box title":           {Title: "title"},
 	}
 
 	for _, input := range slices.Sorted(maps.Keys(tcs)) {
