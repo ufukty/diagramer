@@ -302,9 +302,15 @@ func TestMessage(t *testing.T) {
 
 func TestNote(t *testing.T) {
 	tcs := map[string]*Note{
-		"note left of a: lorem ipsum":  {Lifeline: "a", Content: "lorem ipsum", Pos: tokens.LeftOf},
-		"note over a: lorem ipsum":     {Lifeline: "a", Content: "lorem ipsum", Pos: tokens.Over},
-		"note right of a: lorem ipsum": {Lifeline: "a", Content: "lorem ipsum", Pos: tokens.RightOf},
+		"note left of a: lorem ipsum":  {Lifeline: "a", Pos: tokens.LeftOf, Content: "lorem ipsum"},
+		"note left of a:":              {Lifeline: "a", Pos: tokens.LeftOf, Content: ""},
+		"note left of a":               {Lifeline: "a", Pos: tokens.LeftOf, Content: ""},
+		"note over a: lorem ipsum":     {Lifeline: "a", Pos: tokens.Over, Content: "lorem ipsum"},
+		"note over a:":                 {Lifeline: "a", Pos: tokens.Over, Content: ""},
+		"note over a":                  {Lifeline: "a", Pos: tokens.Over, Content: ""},
+		"note right of a: lorem ipsum": {Lifeline: "a", Pos: tokens.RightOf, Content: "lorem ipsum"},
+		"note right of a:":             {Lifeline: "a", Pos: tokens.RightOf, Content: ""},
+		"note right of a":              {Lifeline: "a", Pos: tokens.RightOf, Content: ""},
 	}
 
 	for _, input := range slices.Sorted(maps.Keys(tcs)) {
@@ -364,6 +370,7 @@ func TestParallel(t *testing.T) {
 func TestWideNote(t *testing.T) {
 	tcs := map[string]*WideNote{
 		"note over a, b: lorem ipsum": {From: "a", To: "b", Content: "lorem ipsum"},
+		"note over a, b:":             {From: "a", To: "b"},
 		"note over a, b":              {From: "a", To: "b"},
 		"note over a,b: lorem ipsum":  {From: "a", To: "b", Content: "lorem ipsum"},
 	}

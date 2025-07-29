@@ -3,6 +3,8 @@ package lexer
 import (
 	"regexp"
 	"strings"
+
+	"github.com/ufukty/diagramer/pkg/sequence/lexer/tokens"
 )
 
 var (
@@ -14,20 +16,19 @@ var (
 	regexCritical   = regexp.MustCompile(`critical\s+(.+)`)
 	regexDeactivate = regexp.MustCompile(`deactivate\s+(\w+)`)
 	regexDestroy    = regexp.MustCompile(`destroy\s+(\w+)`)
-	regexElse       = regexp.MustCompile(``)
-	regexEnd        = regexp.MustCompile(``)
+	regexElse       = regexp.MustCompile(`else\s+(.+)`)
 	regexLifeline   = regexp.MustCompile(`(participant|actor)\s+(\w+)(?:\s+as\s+(.+))?`)
-	regexLoop       = regexp.MustCompile(``)
+	regexLoop       = regexp.MustCompile(`loop\s+(.+)`)
 	regexMessage    = regexp.MustCompile(`([^\s-]+)\s*(?:->>[-+]?)\s*([^\s:]*)(?::\s*(.+))?`)
-	regexNote       = regexp.MustCompile(``)
-	regexOption     = regexp.MustCompile(``)
-	regexParallel   = regexp.MustCompile(``)
-	regexWideNote   = regexp.MustCompile(``)
+	regexNote       = regexp.MustCompile(`note(?:\s+(left of|right of|over)(?:\s+(\w+)(?::(?:\s+(.*)))))`)
+	regexOption     = regexp.MustCompile(`opt\s+(.+)`)
+	regexParallel   = regexp.MustCompile(`par\s+(.+)`)
+	regexWideNote   = regexp.MustCompile(`note\s+over\s+(\w+)\s*,\s*(\w+)(?::\s+(.*))`)
 )
 
 func (Activate) construct(line string) Line {
 	a := &Activate{}
-	if ms := regexActivate.FindStringSubmatch(line); len(ms) > 0 {
+	if ms := regexActivate.FindStringSubmatch(line); len(ms) > 1 {
 		a.Lifeline = ms[1]
 	}
 	return a
@@ -35,7 +36,7 @@ func (Activate) construct(line string) Line {
 
 func (Alt) construct(line string) Line {
 	a := &Alt{}
-	if ms := regexAlt.FindStringSubmatch(line); len(ms) > 0 {
+	if ms := regexAlt.FindStringSubmatch(line); len(ms) > 1 {
 		a.Description = ms[1]
 	}
 	return a
@@ -43,7 +44,7 @@ func (Alt) construct(line string) Line {
 
 func (And) construct(line string) Line {
 	a := &And{}
-	if ms := regexAnd.FindStringSubmatch(line); len(ms) > 0 {
+	if ms := regexAnd.FindStringSubmatch(line); len(ms) > 1 {
 		a.Action = ms[1]
 	}
 	return a
@@ -60,7 +61,7 @@ func (Box) construct(line string) Line {
 
 func (Break) construct(line string) Line {
 	a := &Break{}
-	if ms := regexBreak.FindStringSubmatch(line); len(ms) > 0 {
+	if ms := regexBreak.FindStringSubmatch(line); len(ms) > 1 {
 		a.Description = ms[1]
 	}
 	return a
@@ -80,37 +81,38 @@ func (Create) construct(line string) Line {
 
 func (Critical) construct(line string) Line {
 	a := &Critical{}
-	if ms := regexCritical.FindStringSubmatch(line); len(ms) > 0 {
+	if ms := regexCritical.FindStringSubmatch(line); len(ms) > 1 {
+		a.Description = ms[1]
 	}
 	return a
 }
 
 func (Deactivate) construct(line string) Line {
 	a := &Deactivate{}
-	if ms := regexDeactivate.FindStringSubmatch(line); len(ms) > 0 {
+	if ms := regexDeactivate.FindStringSubmatch(line); len(ms) > 1 {
+		a.Lifeline = ms[1]
 	}
 	return a
 }
 
 func (Destroy) construct(line string) Line {
 	a := &Destroy{}
-	if ms := regexDestroy.FindStringSubmatch(line); len(ms) > 0 {
+	if ms := regexDestroy.FindStringSubmatch(line); len(ms) > 1 {
+		a.Name = ms[1]
 	}
 	return a
 }
 
 func (Else) construct(line string) Line {
 	a := &Else{}
-	if ms := regexElse.FindStringSubmatch(line); len(ms) > 0 {
+	if ms := regexElse.FindStringSubmatch(line); len(ms) > 1 {
+		a.Description = ms[1]
 	}
 	return a
 }
 
 func (End) construct(line string) Line {
-	a := &End{}
-	if ms := regexEnd.FindStringSubmatch(line); len(ms) > 0 {
-	}
-	return a
+	return &End{}
 }
 
 func (LifelineDecl) construct(line string) Line {
@@ -131,7 +133,8 @@ func (LifelineDecl) construct(line string) Line {
 
 func (Loop) construct(line string) Line {
 	a := &Loop{}
-	if ms := regexLoop.FindStringSubmatch(line); len(ms) > 0 {
+	if ms := regexLoop.FindStringSubmatch(line); len(ms) > 1 {
+		a.Description = ms[1]
 	}
 	return a
 }
@@ -154,28 +157,36 @@ func (Message) construct(line string) Line {
 
 func (Note) construct(line string) Line {
 	a := &Note{}
-	if ms := regexNote.FindStringSubmatch(line); len(ms) > 0 {
+	if ms := regexNote.FindStringSubmatch(line); len(ms) > 3 {
+		a.Pos = tokens.NotePos(ms[1])
+		a.Lifeline = ms[2]
+		a.Content = ms[3]
 	}
 	return a
 }
 
 func (Option) construct(line string) Line {
 	a := &Option{}
-	if ms := regexOption.FindStringSubmatch(line); len(ms) > 0 {
+	if ms := regexOption.FindStringSubmatch(line); len(ms) > 1 {
+		a.Description = ms[1]
 	}
 	return a
 }
 
 func (Parallel) construct(line string) Line {
 	a := &Parallel{}
-	if ms := regexParallel.FindStringSubmatch(line); len(ms) > 0 {
+	if ms := regexParallel.FindStringSubmatch(line); len(ms) > 1 {
+		a.Action = ms[1]
 	}
 	return a
 }
 
 func (WideNote) construct(line string) Line {
 	a := &WideNote{}
-	if ms := regexWideNote.FindStringSubmatch(line); len(ms) > 0 {
+	if ms := regexWideNote.FindStringSubmatch(line); len(ms) > 3 {
+		a.From = ms[1]
+		a.To = ms[2]
+		a.Content = ms[3]
 	}
 	return a
 }
