@@ -22,7 +22,7 @@ func TestActivate(t *testing.T) {
 			expected := tcs[input]
 			got := (Activate{}).construct(input).(*Activate)
 			if *got != *expected {
-				t.Errorf("expected %#v got %#v", expected, got)
+				t.Errorf("assertion:\nexpected %#v\ngot      %#v", expected, got)
 			}
 		})
 	}
@@ -43,7 +43,7 @@ func TestAlt(t *testing.T) {
 			expected := tcs[input]
 			got := (Alt{}).construct(input).(*Alt)
 			if *got != *expected {
-				t.Errorf("expected %#v got %#v", expected, got)
+				t.Errorf("assertion:\nexpected %#v\ngot      %#v", expected, got)
 			}
 		})
 	}
@@ -63,7 +63,7 @@ func TestAnd(t *testing.T) {
 			expected := tcs[input]
 			got := (And{}).construct(input).(*And)
 			if *got != *expected {
-				t.Errorf("expected %#v got %#v", expected, got)
+				t.Errorf("assertion:\nexpected %#v\ngot      %#v", expected, got)
 			}
 		})
 	}
@@ -89,7 +89,7 @@ func TestBox(t *testing.T) {
 			expected := tcs[input]
 			got := (Box{}).construct(input).(*Box)
 			if *got != *expected {
-				t.Errorf("expected %#v got %#v", expected, got)
+				t.Errorf("assertion:\nexpected %#v\ngot      %#v", expected, got)
 			}
 		})
 	}
@@ -109,7 +109,7 @@ func TestBreak(t *testing.T) {
 			expected := tcs[input]
 			got := (Break{}).construct(input).(*Break)
 			if *got != *expected {
-				t.Errorf("expected %#v got %#v", expected, got)
+				t.Errorf("assertion:\nexpected %#v\ngot      %#v", expected, got)
 			}
 		})
 	}
@@ -131,7 +131,7 @@ func TestCreate(t *testing.T) {
 			expected := tcs[input]
 			got := (Create{}).construct(input).(*Create)
 			if *got != *expected {
-				t.Errorf("expected %#v got %#v", expected, got)
+				t.Errorf("assertion:\nexpected %#v\ngot      %#v", expected, got)
 			}
 		})
 	}
@@ -151,7 +151,7 @@ func TestCritical(t *testing.T) {
 			expected := tcs[input]
 			got := (Critical{}).construct(input).(*Critical)
 			if *got != *expected {
-				t.Errorf("expected %#v got %#v", expected, got)
+				t.Errorf("assertion:\nexpected %#v\ngot      %#v", expected, got)
 			}
 		})
 	}
@@ -170,7 +170,7 @@ func TestDeactivate(t *testing.T) {
 			expected := tcs[input]
 			got := (Deactivate{}).construct(input).(*Deactivate)
 			if *got != *expected {
-				t.Errorf("expected %#v got %#v", expected, got)
+				t.Errorf("assertion:\nexpected %#v\ngot      %#v", expected, got)
 			}
 		})
 	}
@@ -189,7 +189,7 @@ func TestDestroy(t *testing.T) {
 			expected := tcs[input]
 			got := (Destroy{}).construct(input).(*Destroy)
 			if *got != *expected {
-				t.Errorf("expected %#v got %#v", expected, got)
+				t.Errorf("assertion:\nexpected %#v\ngot      %#v", expected, got)
 			}
 		})
 	}
@@ -209,7 +209,7 @@ func TestElse(t *testing.T) {
 			expected := tcs[input]
 			got := (Else{}).construct(input).(*Else)
 			if *got != *expected {
-				t.Errorf("expected %#v got %#v", expected, got)
+				t.Errorf("assertion:\nexpected %#v\ngot      %#v", expected, got)
 			}
 		})
 	}
@@ -228,7 +228,7 @@ func TestEnd(t *testing.T) {
 			expected := tcs[input]
 			got := (End{}).construct(input).(*End)
 			if *got != *expected {
-				t.Errorf("expected %#v got %#v", expected, got)
+				t.Errorf("assertion:\nexpected %#v\ngot      %#v", expected, got)
 			}
 		})
 	}
@@ -250,7 +250,7 @@ func TestLifelineDecl(t *testing.T) {
 			expected := tcs[input]
 			got := (LifelineDecl{}).construct(input).(*LifelineDecl)
 			if *got != *expected {
-				t.Errorf("expected %#v got %#v", expected, got)
+				t.Errorf("assertion:\nexpected %#v\ngot      %#v", expected, got)
 			}
 		})
 	}
@@ -270,7 +270,7 @@ func TestLoop(t *testing.T) {
 			expected := tcs[input]
 			got := (Loop{}).construct(input).(*Loop)
 			if *got != *expected {
-				t.Errorf("expected %#v got %#v", expected, got)
+				t.Errorf("assertion:\nexpected %#v\ngot      %#v", expected, got)
 			}
 		})
 	}
@@ -294,7 +294,7 @@ func TestMessage(t *testing.T) {
 			expected := tcs[input]
 			got := (Message{}).construct(input).(*Message)
 			if *got != *expected {
-				t.Errorf("expected %#v got %#v", expected, got)
+				t.Errorf("assertion:\nexpected %#v\ngot      %#v", expected, got)
 			}
 		})
 	}
@@ -321,7 +321,7 @@ func TestNote(t *testing.T) {
 			expected := tcs[input]
 			got := (Note{}).construct(input).(*Note)
 			if *got != *expected {
-				t.Errorf("expected %#v got %#v", expected, got)
+				t.Errorf("assertion:\nexpected %#v\ngot      %#v", expected, got)
 			}
 		})
 	}
@@ -341,7 +341,7 @@ func TestOption(t *testing.T) {
 			expected := tcs[input]
 			got := (Option{}).construct(input).(*Option)
 			if *got != *expected {
-				t.Errorf("expected %#v got %#v", expected, got)
+				t.Errorf("assertion:\nexpected %#v\ngot      %#v", expected, got)
 			}
 		})
 	}
@@ -361,7 +361,7 @@ func TestParallel(t *testing.T) {
 			expected := tcs[input]
 			got := (Parallel{}).construct(input).(*Parallel)
 			if *got != *expected {
-				t.Errorf("expected %#v got %#v", expected, got)
+				t.Errorf("assertion:\nexpected %#v\ngot      %#v", expected, got)
 			}
 		})
 	}
@@ -383,7 +383,7 @@ func TestWideNote(t *testing.T) {
 			expected := tcs[input]
 			got := (WideNote{}).construct(input).(*WideNote)
 			if *got != *expected {
-				t.Errorf("expected %#v got %#v", expected, got)
+				t.Errorf("assertion:\nexpected %#v\ngot      %#v", expected, got)
 			}
 		})
 	}
