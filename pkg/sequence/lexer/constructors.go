@@ -20,7 +20,7 @@ var (
 	regexLifeline   = regexp.MustCompile(`(participant|actor)\s+(\w+)(?:\s+as\s+(.+))?`)
 	regexLoop       = regexp.MustCompile(`loop\s+(.+)`)
 	regexMessage    = regexp.MustCompile(`([^\s-]+)\s*(?:->>[-+]?)\s*([^\s:]*)(?::\s*(.+))?`)
-	regexNote       = regexp.MustCompile(`note(?:\s+(left of|right of|over)(?:\s+(\w+)(?::(?:\s+(.*)))))`)
+	regexNote       = regexp.MustCompile(`note(?:\s+(left of|right of|over)(?:\s+(\w+)(?::(?:\s+(.*))?)?)?)?`)
 	regexOption     = regexp.MustCompile(`opt\s+(.+)`)
 	regexParallel   = regexp.MustCompile(`par\s+(.+)`)
 	regexWideNote   = regexp.MustCompile(`note\s+over\s+(\w+)\s*,\s*(\w+)(?::\s+(.*))`)
