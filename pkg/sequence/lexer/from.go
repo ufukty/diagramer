@@ -8,6 +8,11 @@ import (
 	"strings"
 )
 
+type constructor interface {
+	check(string) bool
+	construct(string) Line
+}
+
 var precedence = []constructor{
 	&Activate{},
 	&Alt{},

@@ -7,11 +7,6 @@ import (
 	"github.com/ufukty/diagramer/pkg/sequence/lexer/tokens"
 )
 
-type constructor interface {
-	check(string) bool
-	construct(string) Line
-}
-
 func startsWith(line, word string) bool {
 	return strings.Split(line, " ")[0] == word
 }
