@@ -8,6 +8,27 @@ import (
 	"strings"
 )
 
+var precedence = []constructor{
+	&Activate{},
+	&Alt{},
+	&And{},
+	&Box{},
+	&Break{},
+	&Create{},
+	&Critical{},
+	&Deactivate{},
+	&Destroy{},
+	&Else{},
+	&End{},
+	&LifelineDecl{},
+	&Loop{},
+	&Message{},
+	&Note{},
+	&Option{},
+	&Parallel{},
+	&WideNote{},
+}
+
 func fromLine(line string) Line {
 	for _, constructor := range precedence {
 		if ok := constructor.check(line); !ok {

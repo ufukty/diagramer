@@ -12,27 +12,6 @@ type constructor interface {
 	construct(string) Line
 }
 
-var precedence = []constructor{
-	&Activate{},
-	&Alt{},
-	&And{},
-	&Box{},
-	&Break{},
-	&Create{},
-	&Critical{},
-	&Deactivate{},
-	&Destroy{},
-	&Else{},
-	&End{},
-	&LifelineDecl{},
-	&Loop{},
-	&Message{},
-	&Note{},
-	&Option{},
-	&Parallel{},
-	&WideNote{},
-}
-
 func startsWith(line, word string) bool {
 	return strings.Split(line, " ")[0] == word
 }
