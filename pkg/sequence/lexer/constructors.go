@@ -7,13 +7,11 @@ import (
 	"github.com/ufukty/diagramer/pkg/sequence/lexer/tokens"
 )
 
-// selective line constructor
 type constructor interface {
 	check(string) bool
 	construct(string) Line
 }
 
-// internal purposes only
 var precedence = []constructor{
 	&Activate{},
 	&Alt{},
