@@ -23,7 +23,7 @@ var (
 	regexNote       = regexp.MustCompile(`note(?:\s+(left of|right of|over)(?:\s+(\w+)(?::(?:\s+(.*))?)?)?)?`)
 	regexOption     = regexp.MustCompile(`opt\s+(.+)`)
 	regexParallel   = regexp.MustCompile(`par\s+(.+)`)
-	regexWideNote   = regexp.MustCompile(`note\s+over\s+(\w+)\s*,\s*(\w+)(?::\s+(.*))`)
+	regexWideNote   = regexp.MustCompile(`note(?:\s+over(?:\s+(\w+)(?:\s*,\s*(\w+)(?::\s+(.*))?)?)?)?`)
 )
 
 func (Activate) construct(line string) Line {
