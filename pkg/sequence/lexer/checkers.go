@@ -62,8 +62,10 @@ func (Message) check(line string) bool {
 	return strings.Contains(line, "->>")
 }
 
+var wideNote = &WideNote{}
+
 func (Note) check(line string) bool {
-	return startsWith(strings.TrimSpace(line), "note") && !strings.Contains(strings.Split(line, ":")[0], ",")
+	return startsWith(strings.TrimSpace(line), "note") && !wideNote.check(line)
 }
 
 func (Option) check(line string) bool {
