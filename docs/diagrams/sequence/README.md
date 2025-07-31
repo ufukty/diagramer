@@ -1,10 +1,10 @@
-# Sequence Diagrams
+# Sequence
 
 ## Syntax
 
 ### Definition
 
-```bnf
+```ebnf
 DIAGRAM         ::= "sequenceDiagram" ["autoNumber"] { LIFELINE | MESSAGE }
 
 NAME            ::= WORD
@@ -12,13 +12,13 @@ NAME            ::= WORD
 LIFELINE        ::= ( "participant" | "actor" ) NAME [ "as" ALIAS ]
 ALIAS           ::= (WORD | DIGIT | SPACE)+
 
-MESSAGE         ::= NAME "->>" NAME [ ":" MESSAGE_CONTENT ]
+MESSAGE         ::= NAME "->>" NAME [ ":" MESSAGE_CONTENT ] [ "::" { "create" | "destroy" } ]
 MESSAGE_CONTENT ::= (WORD | DIGIT | SPACE)+
 ```
 
 ### Example
 
-```txt
+```mmd
 sequenceDiagram
 autoNumber
 
@@ -50,4 +50,39 @@ ep->>ds: pushes data: "new placement"
 ds->>ui: updates config
 ui->>ui: diffs configs
 ui->>ui: updates html, if necessary
+```
+
+## Statements
+
+### Lifeline declaration
+
+Lifelines are the sides of messages which are commonly referred with their types: participant, or actor. While lifelines can be created within messages, it is common to declare them separately prior to first interaction. Below, there are the combinations of declaring lifelines.
+
+```
+participant Alice
+participant a as Alice
+actor Alice
+actor a as Alice
+```
+
+### Messages
+
+Messages are written as two end of the interaction separated with a `->>`
+
+### Loops
+
+### Critical regions
+
+### Parallel blocks
+
+## Declarations
+
+### Box
+
+Boxes can be used to wrap 1+ lifelines and their statements witin a rounded box. Background color of the box can be customized with providing a HEX code before the title.
+
+```
+box #00001
+
+end
 ```
