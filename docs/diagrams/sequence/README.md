@@ -5,20 +5,31 @@
 ### Definition
 
 ```ebnf
-DIAGRAM         ::= "sequenceDiagram" ["autoNumber"] { LIFELINE | MESSAGE }
+(* FUNDEMANTALS *)
+ALIAS    ::= (WORD | DIGIT | SPACE)+
+TEXT     ::= (WORD | DIGIT | SPACE)+
+LIFELINE ::= WORD
 
-NAME            ::= WORD
+(* DECLARATIONS *)
+BOX ::= ""
 
-LIFELINE        ::= ( "participant" | "actor" ) NAME [ "as" ALIAS ]
-ALIAS           ::= (WORD | DIGIT | SPACE)+
+(* STATEMENTS *)
+LIFELINE_DECL ::= ( "participant" | "actor" ) LIFELINE [ "as" ALIAS ]
+MESSAGE       ::= LIFELINE "->>" LIFELINE [ ":" TEXT ]
+ACTIVATE      ::= "activate" LIFELINE
+DEACTIVATE    ::= "deactivate" LIFELINE
+CREATE        ::= "create" LIFELINE_DECL
+DESTROY       ::= "destroy" LIFELINE
 
-MESSAGE         ::= NAME "->>" NAME [ ":" MESSAGE_CONTENT ] [ "::" { "create" | "destroy" } ]
-MESSAGE_CONTENT ::= (WORD | DIGIT | SPACE)+
+(* THE DIAGRAM *)
+DECLARATION ::= ( BOX )
+STATEMENT   ::= ( LIFELINE_DECL | MESSAGE | CREATE | DESTROY |  )
+DIAGRAM     ::= "sequenceDiagram" ["autoNumber"] { DECLARATION } { STATEMENT }
 ```
 
 ### Example
 
-```mmd
+```mermaid
 sequenceDiagram
 autoNumber
 
@@ -54,35 +65,85 @@ ui->>ui: updates html, if necessary
 
 ## Statements
 
-### Lifeline declaration
+### Lifelines
 
-Lifelines are the sides of messages which are commonly referred with their types: participant, or actor. While lifelines can be created within messages, it is common to declare them separately prior to first interaction. Below, there are the combinations of declaring lifelines.
+#### Declaring
 
-```
-participant Alice
-participant a as Alice
+Lifelines are declared as either **participant** or **actor** with or without aliasing. Aliases lets you refer to the lifeline using shorter names (such as initials) later in the diagram code without the head box text losing its descriptiveness. Declaring lifelines is not required. Mentioning messages trigger implicit lifeline declaration with defaults.
+
+```mermaid
+participant AppServer
+participant ws as WebServer
 actor Alice
-actor a as Alice
+actor b as Bob
 ```
+
+#### Creating
+
+`create`
+
+#### Destroying
+
+`destroy`
+
+#### Grouping
+
+Boxes can be used to group 2 or more lifelines and their belongings within a rounded box. Background color of the box can be customized with providing a HEX code before the title.
+
+```mermaid
+box #ff0000 Participants
+  participant AppServer
+  participant WebServer
+end
+
+box #0000ff Actors
+  actor a as Alice
+  actor b as Bob
+end
+```
+
+#### Activating
+
+`activate`
+
+#### Deactivating
+
+`deactivate`
 
 ### Messages
 
-Messages are written as two end of the interaction separated with a `->>`
+`message`
 
-### Loops
+### Note
 
-### Critical regions
+`note`
 
-### Parallel blocks
+#### WideNote
 
-## Declarations
+`widenote`
 
-### Box
+### Controlling flow
 
-Boxes can be used to wrap 1+ lifelines and their statements witin a rounded box. Background color of the box can be customized with providing a HEX code before the title.
+#### Break
 
-```
-box #00001
+`break`
 
-end
-```
+#### Loop
+
+`loop`
+
+#### Critical
+
+`critical`
+
+#### Option
+
+`option`
+
+#### Parallel
+
+`parallel`
+
+#### Alt
+
+`alt`
