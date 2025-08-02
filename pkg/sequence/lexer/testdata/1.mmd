@@ -1,24 +1,3 @@
-# Sequence Diagrams
-
-## Syntax
-
-### Definition
-
-```bnf
-DIAGRAM         ::= "sequenceDiagram" ["autoNumber"] { LIFELINE | MESSAGE }
-
-NAME            ::= WORD
-
-LIFELINE        ::= ( "participant" | "actor" ) NAME [ "as" ALIAS ]
-ALIAS           ::= (WORD | DIGIT | SPACE)+
-
-MESSAGE         ::= NAME "->>" NAME [ ":" MESSAGE_CONTENT ]
-MESSAGE_CONTENT ::= (WORD | DIGIT | SPACE)+
-```
-
-### Example
-
-```txt
 sequenceDiagram
 autoNumber
 
@@ -50,4 +29,3 @@ ep->>ds: pushes data: "new placement"
 ds->>ui: updates config
 ui->>ui: diffs configs
 ui->>ui: updates html, if necessary
-```

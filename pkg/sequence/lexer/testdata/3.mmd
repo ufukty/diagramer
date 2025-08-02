@@ -1,0 +1,73 @@
+sequenceDiagram
+autonumber
+
+actor Alice as Alice Alison
+actor Bob as Bob Boisonn
+
+%% Stacked activation & deactivation
+Alice->>+Bob: Hello Bob, are you busy?
+Alice->>+Bob: Bob, can you hear me?
+Bob->>Bob: 🤔 Who is Alice?
+note over Alice,Bob: Bob is working for Alice
+Bob->>-Alice: Hi Alice, I can hear you!
+Bob->>-Alice: I am a lil'bit.
+
+%% Lifeline creation and destruction
+create participant Service
+Bob->>Service: Up
+create participant DB
+Service->>DB: Up
+Bob-xService: Ready and load
+
+%% Lifeline boxes
+box transparent Actors
+  actor Alice
+  actor Bob
+end
+box Participants
+  participant Service
+  participant DB
+end
+
+%% Looping, Notes, Alternatives, Optionals
+%% Parallel, Critical
+loop Every minute
+
+  Alice->>Bob: Are you done by now?
+  activate Bob
+
+  alt is too busy
+    Bob->>Alice: Nope
+  else is not too busy
+    Bob->>Alice: It is urgent?
+  end
+
+  deactivate Bob
+  par Alice to Bob
+    Alice->>Bob: I want X to be done<br>by the end of the day
+  and Alice to Bob
+    Alice->>Bob: I want you to do Y first
+    critical Establish a connection to the DB
+    Bob-->DB: connect
+    option Network timeout
+      Bob-->Bob: Hmm
+    option Credentials rejected
+      Bob-->Bob: Hmm
+    end
+  end
+
+  opt Extra response
+    break Very existential one
+    note left of Bob: What am I doing here?
+    note over Bob: Am I wasting my whole life?
+    note right of Bob: For what?
+    destroy Bob
+    Bob->>Alice: Resign
+    end
+  end
+end
+
+destroy Service
+Alice->>Service: CTRL^Z
+destroy DB
+Alice->>DB: CTRL^Z
