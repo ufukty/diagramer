@@ -97,7 +97,7 @@ var (
 	regexElse       = regexp.MustCompile(`else\s+(.+)`)
 	regexLifeline   = regexp.MustCompile(`(participant|actor)\s+(\w+)(?:\s+as\s+(.+))?`)
 	regexLoop       = regexp.MustCompile(`loop\s+(.+)`)
-	regexMessage    = regexp.MustCompile(`([^\s-]+)\s*(?:->>[-+]?)\s*([^\s:]*)(?::\s*(.+))?`)
+	regexMessage    = regexp.MustCompile(`(\w+)\s*(->>)\s*(\w+)([-+]{1})?(?::\s*(.+))?`)
 	regexNote       = regexp.MustCompile(`note(?:\s+(left of|right of|over)(?:\s+(\w+)(?::(?:\s+(.*))?)?)?)?`)
 	regexOption     = regexp.MustCompile(`opt\s+(.+)`)
 	regexParallel   = regexp.MustCompile(`par\s+(.+)`)
@@ -218,17 +218,17 @@ func (Loop) construct(line string) Line {
 }
 
 func (Message) construct(line string) Line {
-	match := regexMessage.FindStringSubmatch(line)
-	if len(match) < 4 {
-		return nil
-	}
-	m := &Message{
-		From:    match[1],
-		To:      match[2],
-		Content: "",
-	}
-	if len(match) > 3 {
-		m.Content = match[3]
+	m := &Message{}
+	if match := regexMessage.FindStringSubmatch(line); len(match) > 5 {
+		m.From = match[1]
+		m.To = match[3]
+		m.Content = match[5]
+		switch match[4] {
+		case "+":
+			m.Activation = tokens.Activate
+		case "-":
+			m.Activation = tokens.Deactivate
+		}
 	}
 	return m
 }
